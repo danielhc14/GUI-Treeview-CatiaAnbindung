@@ -17,6 +17,7 @@ namespace GUI_Treeview_CatiaAnbindung
         INFITF.Application catiaAnwendung;
         PartDocument catiaPart;
         Sketch catiaSketch;
+        Sketch catiaSketch1;
         ProductDocument activedocproduct;
         Product product1;
         public bool CatiaLauft()
@@ -35,7 +36,7 @@ namespace GUI_Treeview_CatiaAnbindung
 
         public Boolean ErzeugePart()
         {
-            bool bla = true;
+            bool abfrage = true;
             String inputBoxEingabe;
             INFITF.Documents catDocuments1 = catiaAnwendung.Documents;
             catiaPart = catDocuments1.Add("Part") as MECMOD.PartDocument;
@@ -51,14 +52,15 @@ namespace GUI_Treeview_CatiaAnbindung
                 {
                     activedocproduct = (ProductStructureTypeLib.ProductDocument)catiaAnwendung.ActiveDocument;
                     product1 = activedocproduct.Product;
-                    bla = true;
+                    abfrage = true;
                 }
                 catch
                 {
                     MessageBox.Show("Teilenummer konnte nicht ermittelt werden");
-                    bla = false;
+                    abfrage = false;
                 }
             }
+
 
             partnummer1 = product1.get_PartNumber();
             inputBoxEingabe = Interaction.InputBox("Möchten Sie dem Part eine neue Teilenummer zuweisen?", "Zugriff auf Catia V5", partnummer1);
@@ -67,8 +69,7 @@ namespace GUI_Treeview_CatiaAnbindung
                 inputBoxEingabe = partnummer1;
             }
             product1.set_PartNumber(ref inputBoxEingabe);
-
-            return bla;
+            return abfrage;
 
         }
 
@@ -91,9 +92,11 @@ namespace GUI_Treeview_CatiaAnbindung
             catHybridBody1.set_Name("Profile");
             // neue Skizze im ausgewaehlten geometrischen Set anlegen
             Sketches catSketches1 = catHybridBody1.HybridSketches;
+            Sketches catSketches2 = catHybridBody1.HybridSketches;
             OriginElements catOriginElements = catiaPart.Part.OriginElements;
             Reference catReference1 = (Reference)catOriginElements.PlaneYZ;
             catiaSketch = catSketches1.Add(catReference1);
+            catiaSketch1 = catSketches2.Add(catReference1);
 
             // Achsensystem in Skizze erstellen 
             ErzeugeAchsensystem();
@@ -183,19 +186,19 @@ namespace GUI_Treeview_CatiaAnbindung
             Point2D catPoint2D4 = catFactory2D1.CreatePoint(-b, -h);
 
             // dann die Linien
-            Line2D catLine2D1 = catFactory2D1.CreateLine(-b, b, h, h);
+            Line2D catLine2D1 = catFactory2D1.CreateLine(-b, h, b, h);
             catLine2D1.StartPoint = catPoint2D1;
             catLine2D1.EndPoint = catPoint2D2;
 
-            Line2D catLine2D2 = catFactory2D1.CreateLine(b, b, h, -h);
+            Line2D catLine2D2 = catFactory2D1.CreateLine(b, h, b, -h);
             catLine2D2.StartPoint = catPoint2D2;
             catLine2D2.EndPoint = catPoint2D3;
 
-            Line2D catLine2D3 = catFactory2D1.CreateLine(b, -b, -h, -h);
+            Line2D catLine2D3 = catFactory2D1.CreateLine(b, -h, -b, -h);
             catLine2D3.StartPoint = catPoint2D3;
             catLine2D3.EndPoint = catPoint2D4;
 
-            Line2D catLine2D4 = catFactory2D1.CreateLine(-b, -b, -h, h);
+            Line2D catLine2D4 = catFactory2D1.CreateLine(-b, -h, -b, h);
             catLine2D4.StartPoint = catPoint2D4;
             catLine2D4.EndPoint = catPoint2D1;
 
@@ -216,6 +219,45 @@ namespace GUI_Treeview_CatiaAnbindung
             // Block umbenennen
             catPad1.set_Name("Balken");
 
+            // Part aktualisieren
+            catiaPart.Part.Update();
+        }
+        public void ErzeugeTascheDoppelTTräger (double b, double h, double s, double t)
+        {
+            // Skizze umbenennen
+            catiaSketch1.set_Name("Tasche");
+
+            // Rechteck in Skizze einzeichnen
+            // Skizze oeffnen
+            Factory2D catFactory2D1 = catiaSketch1.OpenEdition();
+
+            // Rechteck erzeugen
+
+            // erst die Punkte
+            Point2D catPoint2D1 = catFactory2D1.CreatePoint(s/2, h/2-t);
+            Point2D catPoint2D2 = catFactory2D1.CreatePoint(b/2, h/2-t);
+            Point2D catPoint2D3 = catFactory2D1.CreatePoint(b/2, -(h/2-t));
+            Point2D catPoint2D4 = catFactory2D1.CreatePoint(s/2, -(h/2-t));
+
+            // dann die Linien
+            Line2D catLine2D1 = catFactory2D1.CreateLine(s/2, h/2-t, b/2, h/2-t);
+            catLine2D1.StartPoint = catPoint2D1;
+            catLine2D1.EndPoint = catPoint2D2;
+
+            Line2D catLine2D2 = catFactory2D1.CreateLine(b/2, h/2-t, b/s, -(h/2-t));
+            catLine2D2.StartPoint = catPoint2D2;
+            catLine2D2.EndPoint = catPoint2D3;
+
+            Line2D catLine2D3 = catFactory2D1.CreateLine(b/2, -(h/2-t), s/2, h/2-t);
+            catLine2D3.StartPoint = catPoint2D3;
+            catLine2D3.EndPoint = catPoint2D4;
+
+            Line2D catLine2D4 = catFactory2D1.CreateLine(s/2, -(h/2-t), s/2, h/2-t);
+            catLine2D4.StartPoint = catPoint2D4;
+            catLine2D4.EndPoint = catPoint2D1;
+
+            // Skizzierer verlassen
+            catiaSketch1.CloseEdition();
             // Part aktualisieren
             catiaPart.Part.Update();
         }
