@@ -1,0 +1,357 @@
+﻿<Window x:Class="GUI_Treeview_CatiaAnbindung.GUI"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:GUI_Treeview_CatiaAnbindung"
+        mc:Ignorable="d"
+        Title="Profilberechnung" Height="500.666" Width="1000" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,4,0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="520*"/>
+            <ColumnDefinition Width="331*"/>
+        </Grid.ColumnDefinitions>
+        <TreeView x:Name="trv_Auswahl1" HorizontalAlignment="Left" Height="399" Margin="10,10,0,0" VerticalAlignment="Top" Width="160">
+            <TreeViewItem x:Name="trv_Auswahl" Header="Eckige Formen" Height="78" Width="154" IsExpanded="True">
+                <TreeViewItem Header="Rechteck" HorizontalAlignment="Left" Height="20" Width="81" Selected="TreeViewItem_Rechteck_Selected"/>
+                <TreeViewItem Header="Rechteckrohr" HorizontalAlignment="Left" Height="20" Width="135" Selected="TreeViewItem_Rechteckrohr_Selected"/>
+                <TreeViewItem Header="Doppel T-Träger" HorizontalAlignment="Left" Height="20" Width="135" Selected="TreeViewItem_DoppelTTräger_Selected"/>
+
+            </TreeViewItem>
+            <TreeViewItem Header="Runde Formen" Height="100" Width="154" IsExpanded="True">
+                <TreeViewItem Header="Kreis" HorizontalAlignment="Left" Height="20" Width="81" Selected="TreeViewItem_Kreis_Selected"/>
+                <TreeViewItem Header="Rohr" HorizontalAlignment="Left" Height="20" Width="135" Selected="TreeViewItem_Rohr_Selected"/>
+            </TreeViewItem>
+        </TreeView>
+        <Grid x:Name="Grid_Rechteck" HorizontalAlignment="Left" Height="432" Margin="175,10,0,0" VerticalAlignment="Top" Width="815" Grid.ColumnSpan="2" Visibility="Hidden">
+            <Label Content="Länge eingeben:" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_Länge" HorizontalAlignment="Left" Height="23" Margin="120,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" LostFocus="txtB_Länge_Lost_Focus" TextAlignment="Right" GotFocus="txtB_Länge_Focus"/>
+            <Label Content="Breite eingeben:" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.191,-0.409"/>
+            <TextBox x:Name="txtB_Breite" HorizontalAlignment="Left" Height="23" Margin="120,68,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_Breite_Lost_Focus" GotFocus="txtB_Breite_Focus"/>
+            <Label Content="Tiefe eingeben:" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.063,-0.797"/>
+            <Label Content="Dichte eingeben:" HorizontalAlignment="Left" Margin="10,127,0,0" VerticalAlignment="Top"/>
+            <Label Content="Preis eingeben:" HorizontalAlignment="Left" Margin="10,153,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_tiefe" HorizontalAlignment="Left" Height="23" Margin="120,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_tiefe_Lost_Focus" GotFocus="txtB_tiefe_Focus"/>
+            <TextBox x:Name="txtB_dichte" HorizontalAlignment="Left" Height="23" Margin="120,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_dichte_Lost_Focus" GotFocus="txtB_dichte_Focus"/>
+            <TextBox x:Name="txtB_Preis" HorizontalAlignment="Left" Height="23" Margin="120,156,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_Preis_Lost_Focus" GotFocus="txtB_Preis_Focus"/>
+            <Label Content="Flächenträgheitsmoment" HorizontalAlignment="Left" Margin="10,184,0,0" VerticalAlignment="Top"/>
+            <Label Content="Ixx" HorizontalAlignment="Left" Margin="296,245,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.194,0.487"/>
+            <Label Content="Iyy" HorizontalAlignment="Left" Margin="296,275,0,0" VerticalAlignment="Top"/>
+            <Label Content="Berechnete Fläche" HorizontalAlignment="Left" Margin="296,50,0,0" VerticalAlignment="Top"/>
+            <Label Content="Berechnetes Volumen" HorizontalAlignment="Left" Margin="296,100,0,0" VerticalAlignment="Top"/>
+            <Label Content="Berechnetes Gewicht" HorizontalAlignment="Left" Margin="296,150,0,0" VerticalAlignment="Top"/>
+            <Label Content="Berechneter Preis" HorizontalAlignment="Left" Margin="296,200,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_Ausgabe_Flaeche" HorizontalAlignment="Left" Height="23" Margin="438,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <TextBox x:Name="txtB_Ausgabe_Volumen" HorizontalAlignment="Left" Height="23" Margin="438,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <TextBox x:Name="txtB_Ausgabe_Gewicht" HorizontalAlignment="Left" Height="23" Margin="438,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <TextBox x:Name="txtB_Ausgabe_Preis" HorizontalAlignment="Left" Height="23" Margin="438,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <TextBox x:Name="txtB_Ausgabe_Ixx" HorizontalAlignment="Left" Height="23" Margin="438,245,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <TextBox x:Name="txtB_Ausgabe_Iyy" HorizontalAlignment="Left" Height="23" Margin="438,275,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <Button x:Name="btn_Fläche" Content="Fläche berechnen" HorizontalAlignment="Left" Margin="626,50,0,0" VerticalAlignment="Top" Width="140" Height="23" Click="btn_Fläche_Click"/>
+            <Button x:Name="btn_Volumen" Content="Volumen berechnen" HorizontalAlignment="Left" Margin="626,100,0,0" VerticalAlignment="Top" Width="140" Height="23" Click="btn_Volumen_Click"/>
+            <Button x:Name="btn_gewicht" Content="Gewicht berechnen" HorizontalAlignment="Left" Margin="626,150,0,0" VerticalAlignment="Top" Width="140" Click="btn_gewicht_Click" Height="23"/>
+            <Button x:Name="btn_preis" Content="Preis berechnen" HorizontalAlignment="Left" Margin="626,200,0,0" VerticalAlignment="Top" Width="140" Click="btn_preis_Click" Height="23"/>
+            <Button x:Name="btn_Flächenträgheitsmoment" Content="Flächenträgheitsmoment&#xD;&#xA;           berechnen" HorizontalAlignment="Left" Margin="626,250,0,0" VerticalAlignment="Top" Width="140" Height="54" Click="btn_Flächenträgheitsmoment_Click"/>
+            <Image HorizontalAlignment="Left" Height="174" Margin="10,215,0,0" VerticalAlignment="Top" Width="199" Source="Bilder/Rechteck.png"/>
+            <Grid HorizontalAlignment="Left" Height="100" Margin="296,160,0,0" VerticalAlignment="Top" Width="100"/>
+            <Label Content="Rechteckberechnung" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic"/>
+            <Button x:Name="btn_Eingabe_Löschen" Content="Eingaben löschen" HorizontalAlignment="Left" Margin="626,370,0,0" VerticalAlignment="Top" Width="140" Height="46" Click="btn_Eingabe_Löschen_Click"/>
+            <Button x:Name="btn_Werte_einlesen" HorizontalAlignment="Left" Margin="471,370,0,0" VerticalAlignment="Top" Width="150" Height="46" MouseMove="btn_Werte_einlesen_Mouse_Move" MouseLeave="btn_Werte_einlesen_Mouse_Leave" Click="btn_Werte_einlesen_Click">
+                <StackPanel>
+                    <TextBlock>Ergebnisse wieder einlesen</TextBlock>
+                    <Popup Name="Popup_Werte_Einlesen"  IsOpen="False" Placement="Mouse" VerticalOffset="-50">
+                        <Border BorderThickness="1" BorderBrush="Black">
+                            <TextBlock Background="LightGray" FontSize="10" >
+                                Zuvor Berechnete Ergebnisse, welche sich im Arbeittspeicher befinden
+                            </TextBlock>
+                        </Border>
+
+                    </Popup>
+
+                </StackPanel>
+
+            </Button>
+            <Label Content="alle Schwerpunkte liegen im Mittelpunkt" HorizontalAlignment="Left" Margin="300,330,0,0" VerticalAlignment="Top" Width="265"/>
+            <Button x:Name="btn_Alle_Berechnungen_durchführen" Content="Alle Berechnungen&#xD;&#xA;      durchführen" HorizontalAlignment="Left" Margin="326,370,0,0" VerticalAlignment="Top" Width="140" Height="46" Click="btn_Alle_Berechnungen_durchführen_Click"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="205,34,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="205,65,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="205,98,0,0" VerticalAlignment="Top"/>
+            <Label Content="g/mm³" HorizontalAlignment="Left" Margin="205,128,0,0" VerticalAlignment="Top"/>
+            <Label Content="€/g" HorizontalAlignment="Left" Margin="205,156,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm²" HorizontalAlignment="Left" Margin="563,50,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm³" HorizontalAlignment="Left" Margin="563,98,0,0" VerticalAlignment="Top"/>
+            <Label Content="g" HorizontalAlignment="Left" Margin="563,148,0,0" VerticalAlignment="Top"/>
+            <Label Content="€" HorizontalAlignment="Left" Margin="563,197,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm⁴" HorizontalAlignment="Left" Margin="563,245,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm⁴" HorizontalAlignment="Left" Margin="563,275,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="btn_CATIA_Rechteck" Content="An Catia übertragen" HorizontalAlignment="Left" Margin="181,370,0,0" VerticalAlignment="Top" Width="140" Height="46" Click="btn_CATIA_Rechteck_Click"/>
+
+        </Grid>
+        <Grid x:Name="Grid_Doppel_T_Träger" HorizontalAlignment="Left" Height="432" Margin="175,10,0,0" VerticalAlignment="Top" Width="815" Grid.ColumnSpan="2" Visibility="Visible">
+            <Label Content="Höhe eingeben" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top"/>
+            <Label Content="Breite eingeben" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top"/>
+            <Label Content="t eingeben" HorizontalAlignment="Left" Margin="11,104,0,0" VerticalAlignment="Top"/>
+            <Label Content="s eingeben" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_Höhe_T_Träger" HorizontalAlignment="Left" Height="23" Margin="168,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_Höhe_T_Träger_Lost_Focus" GotFocus="txtB_Höhe_T_Träger_Focus"/>
+            <TextBox x:Name="txtB_Breite_T_Träger" HorizontalAlignment="Left" Height="23" Margin="168,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_Breite_T_Träger_Lost_Focus" GotFocus="txtB_Breite_T_Träger_Focus"/>
+            <TextBox x:Name="txtB_t_T_Träger" HorizontalAlignment="Left" Height="23" Margin="168,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_t_T_Träger_Lost_Focus" GotFocus="txtB_t_T_Träger_Focus"/>
+            <TextBox x:Name="txtB_s_T_Träger" HorizontalAlignment="Left" Height="23" Margin="168,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_s_T_Träger_Lost_Focus" GotFocus="txtB_s_T_Träger_Focus"/>
+            <Label Content="Fläche " HorizontalAlignment="Left" Margin="348,50,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_Ausgabe_T_Träger_Fläche" HorizontalAlignment="Left" Height="23" Margin="449,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <Button x:Name="btn_Fläche_T_Träger" Content="Fläche brechnen" HorizontalAlignment="Left" Margin="627,50,0,0" VerticalAlignment="Top" Width="149" Height="23" Click="btn_Fläche_T_Träger_Click"/>
+            <Label Content="Tiefe eingeben" HorizontalAlignment="Left" Margin="10,157,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_tiefe_T_Träger" HorizontalAlignment="Left" Height="23" Margin="168,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_tiefe_T_Träger_Lost_Focus" GotFocus="txtB_tiefe_T_Träger_Focus"/>
+            <Label Content="Volumen " HorizontalAlignment="Left" Margin="348,100,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_Ausgabe_T_Träger_Volumen" HorizontalAlignment="Left" Height="23" Margin="449,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <Button x:Name="btn_Fläche_T_Träger1" Content="Volumen Berechnen" HorizontalAlignment="Left" Margin="627,100,0,0" VerticalAlignment="Top" Width="149" Height="23" Click="btn_Fläche_T_Träger1_Click"/>
+            <Label Content="Dichte eingeben" HorizontalAlignment="Left" Margin="10,188,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_dichte_T_Träger" HorizontalAlignment="Left" Height="23" Margin="168,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_dichte_T_Träger_Lost_Focus" GotFocus="txtB_dichte_T_Träger_Focus"/>
+            <Label Content="Gewicht " HorizontalAlignment="Left" Margin="347,150,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_Ausgabe_T_Träger_Gewicht" HorizontalAlignment="Left" Height="23" Margin="449,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <Button x:Name="btn_Gewicht_T_Träger" Content="Gewicht berechnen" HorizontalAlignment="Left" Margin="627,150,0,0" VerticalAlignment="Top" Width="149" Click="btn_Gewicht_T_Träger_Click_1" Height="23"/>
+            <Label Content="Preis des Profils eingeben" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_preis_T_Träger" HorizontalAlignment="Left" Height="23" Margin="168,216,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_preis_T_Träger_Lost_Focus" GotFocus="txtB_preis_T_Träger_Focus"/>
+            <Label Content="Preis" HorizontalAlignment="Left" Margin="347,200,0,0" VerticalAlignment="Top" Width="112"/>
+            <TextBox x:Name="txtB_Ausgabe_T_Träger_Preis" HorizontalAlignment="Left" Height="23" Margin="449,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <Button x:Name="btn_Preis_T_Träger1" Content="Preis berechnen" HorizontalAlignment="Left" Margin="627,200,0,0" VerticalAlignment="Top" Width="149" Height="23" Click="btn_Preis_T_Träger1_Click"/>
+            <Label Content="Flächenträgheitsmoment" HorizontalAlignment="Left" Margin="10,244,0,0" VerticalAlignment="Top"/>
+            <Label Content="Ixx" HorizontalAlignment="Left" Margin="348,244,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.583,0.962"/>
+            <Label Content="Iyy" HorizontalAlignment="Left" Margin="348,276,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.56,-0.141"/>
+            <TextBox x:Name="txtB_Ausgabe_T_Träger_Ixx" HorizontalAlignment="Left" Height="23" Margin="449,251,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <TextBox x:Name="txtB_Ausgabe_T_Träger_Iyy" HorizontalAlignment="Left" Height="23" Margin="449,279,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <Button x:Name="btn_Flächenträgheitsmoment_T_Träger" Content="Flächenträgheitsmoment&#xD;&#xA;berechnen" HorizontalAlignment="Left" Margin="627,253,0,0" VerticalAlignment="Top" Width="149" Height="53" Click="btn_Flächenträgheitsmoment_T_Träger_Click"/>
+            <Image HorizontalAlignment="Left" Height="155" Margin="10,277,0,0" VerticalAlignment="Top" Width="162" Source="Bilder/doppel-t.png"/>
+            <Label Content="Doppel T-Träger" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic"/>
+            <Button x:Name="btn_T_Träger_Eingaben_Löschen" Content="Eingaben Löschen" HorizontalAlignment="Left" Margin="627,370,0,0" Width="149" Height="46" VerticalAlignment="Top" Click="btn_T_Träger_Eingaben_Löschen_Click"/>
+            <Button x:Name="btn_Ergebnisse_Wieder_Einlesen" HorizontalAlignment="Left" Margin="473,370,0,0" VerticalAlignment="Top" Width="149" Height="46" MouseMove="btn_Ergebnisse_Wieder_Einlesen_Mouse_Move" MouseLeave="btn_Ergebnisse_Wieder_Einlesen_Mouse_Leave" Click="btn_Ergebnisse_Wieder_Einlesen_Click">
+                <StackPanel>
+                    <TextBlock>Ergebnisse wieder einlesen</TextBlock>
+                    <Popup Name="Popup_Ergebnisse_Einlesen_T"  IsOpen="False" Placement="Mouse" VerticalOffset="-50">
+                        <Border BorderThickness="1" BorderBrush="Black">
+                            <TextBlock Background="LightGray" FontSize="10" >
+                                Zuvor Berechnete Ergebnisse, welche sich im Arbeittspeicher befinden
+                            </TextBlock>
+                        </Border>
+
+                    </Popup>
+
+                </StackPanel>
+
+            </Button>
+            <Label Content="alle Schwerpunkte liegen im Mittelpunkt" HorizontalAlignment="Left" Margin="348,330,0,0" VerticalAlignment="Top" Width="221"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="253,45,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.25,-0.135"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="253,73,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="253,105,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.618,0.25"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="253,131,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="253,162,0,0" VerticalAlignment="Top"/>
+            <Label Content="g/mm³" HorizontalAlignment="Left" Margin="253,188,0,0" VerticalAlignment="Top"/>
+            <Label Content="€/g" HorizontalAlignment="Left" Margin="253,216,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm²" HorizontalAlignment="Left" Margin="574,48,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm³" HorizontalAlignment="Left" Margin="574,98,0,0" VerticalAlignment="Top"/>
+            <Label Content="g" HorizontalAlignment="Left" Margin="574,150,0,0" VerticalAlignment="Top"/>
+            <Label Content="€" HorizontalAlignment="Left" Margin="574,200,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm⁴" HorizontalAlignment="Left" Margin="574,251,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm⁴" HorizontalAlignment="Left" Margin="574,279,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="btn_Alle_Berechnungen_Durchführen" Content="Alle Berechnungen&#xD;&#xA;     durchführen" HorizontalAlignment="Left" Margin="319,370,0,0" VerticalAlignment="Top" Width="149" Height="46" Click="btn_Alle_Berechnungen_Durchführen_Click_1"/>
+            <Button x:Name="btn_Catia_Doppel_T_Träger" Content="An Catia übertragen" HorizontalAlignment="Left" Margin="165,370,0,0" VerticalAlignment="Top" Width="149" Height="46" Click="btn_Catia_Doppel_T_Träger_Click"/>
+
+        </Grid>
+        <Grid x:Name="Grid_Rechteckrohr" HorizontalAlignment="Left" Height="462" Margin="175,10,0,0" VerticalAlignment="Top" Width="815" Grid.ColumnSpan="2" Visibility="Hidden">
+            <Image HorizontalAlignment="Left" Height="190" Margin="10,268,0,0" VerticalAlignment="Top" Width="158" Source="Bilder/rechteckrohr.png"/>
+            <Label Content="Rechteckrohr" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic"/>
+            <Label Content="Höhe eingeben" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top"/>
+            <Label Content="Breite eingeben" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top"/>
+            <Label Content="höhe eingeben" HorizontalAlignment="Left" Margin="11,104,0,0" VerticalAlignment="Top"/>
+            <Label Content="breite eingeben" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_Höhe_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="168,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_Höhe_Rechteckrohr_Lost_Focus" GotFocus="txtB_Höhe_Rechteckrohr_Focus"/>
+            <TextBox x:Name="txtB_Breite_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="168,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_Breite_Rechteckrohr_Lost_Focus" GotFocus="txtB_Breite_Rechteckrohr_Focus"/>
+            <TextBox x:Name="txtB_höhe_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="168,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_höhe_Rechteckrohr_Lost_Focus" GotFocus="txtB_höhe_Rechteckrohr_Focus"/>
+            <TextBox x:Name="txtB_breite_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="168,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_breite_Rechteckrohr_Lost_Focus" GotFocus="txtB_breite_Rechteckrohr_Focus"/>
+            <Label Content="Fläche " HorizontalAlignment="Left" Margin="348,50,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_Ausgabe_Fläche_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="450,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <Button x:Name="btn_Fläche_Rechteckrohr" Content="Fläche brechnen" HorizontalAlignment="Left" Margin="627,50,0,0" VerticalAlignment="Top" Width="149" Height="23" Click="btn_Fläche_Rechteckrohr_Click"/>
+            <Label Content="Tiefe eingeben" HorizontalAlignment="Left" Margin="10,157,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_tiefe_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="168,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_tiefe_Rechteckrohr_Lost_Focus" GotFocus="txtB_tiefe_Rechteckrohr_Focus"/>
+            <Label Content="Volumen " HorizontalAlignment="Left" Margin="348,100,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_Ausgabe_Volumen_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="450,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <Button x:Name="btn_Volumen_Rechteckrohr" Content="Volumen Berechnen" HorizontalAlignment="Left" Margin="627,100,0,0" VerticalAlignment="Top" Width="149" Height="23" Click="btn_Volumen_Rechteckrohr_Click"/>
+            <Label Content="Dichte eingeben" HorizontalAlignment="Left" Margin="10,188,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_dichte_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="168,188,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_dichte_Rechteckrohr_Lost_Focus" GotFocus="txtB_dichte_Rechteckrohr_Focus"/>
+            <Label Content="Gewicht " HorizontalAlignment="Left" Margin="347,150,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_Ausgabe_Gewicht_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="450,150,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <Button x:Name="btn_Gewicht_Rechteckrohr" Content="Gewicht berechnen" HorizontalAlignment="Left" Margin="627,150,0,0" VerticalAlignment="Top" Width="149" Click="btn_Gewicht_Rechteckrohr_Click" Height="23"/>
+            <Label Content="Preis des Profils eingeben" HorizontalAlignment="Left" Margin="10,213,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_preis_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="168,216,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_preis_Rechteckrohr_Lost_Focus" GotFocus="txtB_preis_Rechteckrohr_Focus"/>
+            <Label Content="Preis" HorizontalAlignment="Left" Margin="347,200,0,0" VerticalAlignment="Top" Width="112"/>
+            <TextBox x:Name="txtB_Ausgabe_Preis_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="450,200,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <Button x:Name="btn_Preis_Rechteckrohr" Content="Preis berechnen" HorizontalAlignment="Left" Margin="627,200,0,0" VerticalAlignment="Top" Width="149" Height="23" Click="btn_Preis_Rechteckrohr1_Click"/>
+            <Label Content="Flächenträgheitsmoment" HorizontalAlignment="Left" Margin="10,244,0,0" VerticalAlignment="Top"/>
+            <Label Content="Ixx" HorizontalAlignment="Left" Margin="348,244,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.583,0.962"/>
+            <Label Content="Iyy" HorizontalAlignment="Left" Margin="348,276,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.56,-0.141"/>
+            <TextBox x:Name="txtB_Ausgabe_Ixx_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="450,247,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <TextBox x:Name="txtB_Ausgabe_Iyy_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="450,279,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <Button x:Name="btn_Flächenträgheitsmoment_Rechteckrohr" Content="Flächenträgheitsmoment&#xD;&#xA;berechnen" HorizontalAlignment="Left" Margin="627,253,0,0" VerticalAlignment="Top" Width="149" Height="53" Click="btn_Flächenträgheitsmoment_Rechteckrohr_Click"/>
+            <Button x:Name="btn_Rechteckrohr_Eingaben_Löschen" Content="Eingaben Löschen" HorizontalAlignment="Left" Margin="627,370,0,0" Width="149" Height="46" VerticalAlignment="Top" Click="btn_Rechteckrohr_Eingaben_Löschen_Click"/>
+            <Button x:Name="btn_Ergebnisse_Wieder_Einlesen_Rechteckrohr" HorizontalAlignment="Left" Margin="473,370,0,0" VerticalAlignment="Top" Width="149" Height="46" MouseMove="btn_Ergebnisse_Wieder_Einlesen_Mouse_Move_Rechteckrohr" MouseLeave="btn_Ergebnisse_Wieder_Einlesen_Mouse_Leave_Rechteckrohr" Click="btn_Ergebnisse_Wieder_Einlesen_Click_Rechteckrohr">
+                <StackPanel>
+                    <TextBlock>Ergebnisse wieder einlesen</TextBlock>
+                    <Popup Name="Popup_Ergebnisse_Einlesen_Rechteckrohr"  IsOpen="False" Placement="Mouse" VerticalOffset="-50">
+                        <Border BorderThickness="1" BorderBrush="Black">
+                            <TextBlock Background="LightGray" FontSize="10" >
+                                Zuvor Berechnete Ergebnisse, welche sich im Arbeittspeicher befinden
+                            </TextBlock>
+                        </Border>
+
+                    </Popup>
+
+                </StackPanel>
+
+            </Button>
+            <Label Content="alle Schwerpunkte liegen im Mittelpunkt" HorizontalAlignment="Left" Margin="347,330,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="253,48,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="253,79,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="253,106,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="253,132,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="253,160,0,0" VerticalAlignment="Top"/>
+            <Label Content="g/mm³" HorizontalAlignment="Left" Margin="253,188,0,0" VerticalAlignment="Top"/>
+            <Label Content="€/g" HorizontalAlignment="Left" Margin="253,216,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm²" HorizontalAlignment="Left" Margin="577,50,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm³" HorizontalAlignment="Left" Margin="577,100,0,0" VerticalAlignment="Top"/>
+            <Label Content="g" HorizontalAlignment="Left" Margin="577,150,0,0" VerticalAlignment="Top"/>
+            <Label Content="€" HorizontalAlignment="Left" Margin="577,200,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm⁴" HorizontalAlignment="Left" Margin="577,247,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm⁴" HorizontalAlignment="Left" Margin="577,279,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="btn_Alle_Berechnungen_Durchführen_Rechteckrohr" Content="Alle Berechnungen&#xD;&#xA;     durchführen" HorizontalAlignment="Left" Margin="319,370,0,0" VerticalAlignment="Top" Width="149" Height="46" Click="btn_Alle_Berechnungen_Durchführen_Rechteckrohr_Click"/>
+
+
+        </Grid>
+
+        <Grid x:Name="Grid_Kreis" HorizontalAlignment="Left" Height="432" Margin="175,8,0,0" VerticalAlignment="Top" Width="815" Grid.ColumnSpan="2" Visibility="Hidden">
+
+
+            <Image HorizontalAlignment="Left" Height="175" Margin="10,247,0,0" VerticalAlignment="Top" Width="149" Source="Bilder/Kreis.png"/>
+            <Label x:Name="lbl_kreis" Content="Kreis" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic"/>
+            <Label x:Name="lbl_kreis_durchmesser" Content="Durchmesser eingeben:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,50,0,0"/>
+            <TextBox x:Name="txb_kreis_durchmesser" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80" Margin="160,50,0,0" LostFocus="txb_kreis_durchmesser_LostFocus"/>
+            <Label x:Name="lbl_kreis_laenge" Content="Tiefe eingeben:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,90,0,0"/>
+            <TextBox x:Name="txb_kreis_laenge" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80" Margin="160,90,0,0" LostFocus="txb_kreis_laenge_LostFocus"/>
+            <Label x:Name="lbl_kreis_dichte" Content="Dichte eingeben:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,130,0,0"/>
+            <TextBox x:Name="txb_kreis_dichte" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80" Margin="160,130,0,0" LostFocus="txb_kreis_dichte_LostFocus"/>
+            <Label x:Name="lbl_kreis_preis" Content="Preis pro kg eingeben:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,170,0,0"/>
+            <TextBox x:Name="txb_kreis_preis" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="80" Margin="160,170,0,0" LostFocus="txb_kreis_preis_LostFocus"/>
+            <Label x:Name="lbl_kreis_flaeche" Content="Brerechnete Fläche:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="304,47,0,0"/>
+            <TextBox x:Name="txb_kreis_flaeche" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="455,47,0,0" IsEnabled="False"/>
+            <Label x:Name="lbl_kreis_volumen" Content="Berechnetes Volumen:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="304,87,0,0"/>
+            <TextBox x:Name="txb_kreis_volumen" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="455,87,0,0" IsEnabled="False"/>
+            <Label x:Name="lbl_kreis_gewicht" Content="Berechnetes Gewicht:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="304,127,0,0"/>
+            <TextBox x:Name="txb_kreis_gewicht" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="455,127,0,0" IsEnabled="False"/>
+            <Label x:Name="lbl_kreis_preisberechnet" Content="Berechneter Preis:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="304,167,0,0"/>
+            <TextBox x:Name="txb_kreis_preisberechnet" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="455,167,0,0" IsEnabled="False"/>
+            <Button x:Name="btn_kreis_flaeche" Content="Fläche berechnen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="619,47,0,0" Height="23" Click="btn_kreis_flaeche_Click"/>
+            <Button x:Name="btn_kreis_volumen" Content="Volumen berechnen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="619,87,0,0" Height="23" Click="btn_kreis_volumen_Click"/>
+            <Button x:Name="btn_kreis_gewicht" Content="Gewicht berechnen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="619,127,0,0" Height="23" Click="btn_kreis_gewicht_Click"/>
+            <Button x:Name="btn_kreis_preis" Content="Preis berechnen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="619,167,0,0" Height="23" Click="btn_kreis_preis_Click"/>
+            <Label Content="Flächenträgheitsmomente:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,216,0,0"/>
+            <Button x:Name="btn_kreis_flaechentraegheit" Content="Flächenträgheitsmomente" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="619,216,0,0" Height="63" Click="btn_kreis_flaechentraegheit_Click"/>
+            <Label x:Name="lbl_kreis_ixx" Content="Ixx:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="304,216,0,0"/>
+            <TextBox x:Name="txb_kreis_flaechentraegheit_ixx" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="455,216,0,0" IsEnabled="False"/>
+            <TextBox x:Name="txb_kreis_flaechentraegheit_iyy" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="120" Margin="455,256,0,0" IsEnabled="False"/>
+            <Label Content="Iyy:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="304,256,0,0"/>
+            <Button x:Name="btn_kreis_loeschen" Content="Eingaben löschen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="619,358,0,0" Height="64" Click="btn_kreis_loeschen_Click"/>
+            <Button x:Name="btn_kreis1_eingaben_einlesen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" Margin="444,358,0,0" Height="64" Click="btn_kreis_eingaben_einlesen" MouseMove="btn_kreis_eingaben_einlesen_Mouse_Move" MouseLeave="btn_kreis_eingaben_einlesen_Mouse_Leave">
+                <StackPanel>
+                    <TextBlock>Ergebnisse wieder einlesen</TextBlock>
+                    <Popup Name="Popup_Werte_Einlesen_Rohr"  IsOpen="False" Placement="Mouse" VerticalOffset="-50">
+                        <Border BorderThickness="1" BorderBrush="Black">
+                            <TextBlock Background="LightGray" FontSize="10" >
+                                Zuvor Berechnete Ergebnisse, welche sich im Arbeittspeicher befinden
+                            </TextBlock>
+                        </Border>
+
+                    </Popup>
+
+                </StackPanel>
+
+            </Button>
+            <Label Content="alle Schwerpunkte liegen im Mittelpunkt" HorizontalAlignment="Left" Margin="304,320,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="245,50,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="245,90,0,0" VerticalAlignment="Top"/>
+            <Label Content="g/mm³" HorizontalAlignment="Left" Margin="245,130,0,0" VerticalAlignment="Top"/>
+            <Label Content="€/g" HorizontalAlignment="Left" Margin="245,170,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm²" HorizontalAlignment="Left" Margin="580,47,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm³" HorizontalAlignment="Left" Margin="580,86,0,0" VerticalAlignment="Top"/>
+            <Label Content="g" HorizontalAlignment="Left" Margin="580,127,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.118,0.192"/>
+            <Label Content="€" HorizontalAlignment="Left" Margin="580,167,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm⁴" HorizontalAlignment="Left" Margin="580,216,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm⁴" HorizontalAlignment="Left" Margin="580,256,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="btn_Alle_Berechnungen_Durchführen_Kreis" Content="Alle Berechnungen&#xD;&#xA;      durchführen" HorizontalAlignment="Left" Margin="281,358,0,0" VerticalAlignment="Top" Width="150" Height="64" Click="btn_Alle_Berechnungen_Durchführen_Kreis_Click"/>
+
+
+
+        </Grid>
+        <Grid x:Name="Grid_Rohr" HorizontalAlignment="Left" Height="432" Margin="175,10,0,0" VerticalAlignment="Top" Width="815" Grid.ColumnSpan="2" Visibility="Hidden">
+            <Label Content="Aussendurchmesser eingeben:" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_Aussendurchmesser_Rohr" HorizontalAlignment="Left" Height="23" Margin="186,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" GotFocus="txtB_Aussendurchmesser_Rohr_Focus" LostFocus="txtB_aussendurchmesser_Rohr_Lost_Focus" TextAlignment="Right"/>
+            <Label Content="Innendurchmesser eingeben:" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.191,-0.409"/>
+            <TextBox x:Name="txtB_Innendurchmesser_Rohr" HorizontalAlignment="Left" Height="23" Margin="186,71,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" LostFocus="txtB_Innendurchmesser_Rohr_Lost_Focus" GotFocus="txtB_Innendurchmesser_Rohr_Focus" TextAlignment="Right"/>
+            <Label Content="Tiefe eingeben:" HorizontalAlignment="Left" Margin="10,99,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.063,-0.797"/>
+            <Label Content="Dichte eingeben:" HorizontalAlignment="Left" Margin="10,127,0,0" VerticalAlignment="Top"/>
+            <Label Content="Preis eingeben:" HorizontalAlignment="Left" Margin="10,153,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_t_Rohr" HorizontalAlignment="Left" Height="23" Margin="186,100,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" LostFocus="txtB_t_Rohr_Lost_Focus" GotFocus="txtB_t_Rohr_Focus" TextAlignment="Right"/>
+            <TextBox x:Name="txtB_Dichte_Rohr" HorizontalAlignment="Left" Height="23" Margin="186,128,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" GotFocus="txtB_Dichte_Rohr_Focus" LostFocus="txtB_Dichte_Rohr_Lost_Focus" TextAlignment="Right"/>
+            <TextBox x:Name="txtB_Preis_Rohr" HorizontalAlignment="Left" Height="23" Margin="186,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" LostFocus="txtB_Preis_Rohr_Lost_Focus" TextAlignment="Right" GotFocus="txtB_Preis_Rohr_Focus"/>
+            <Label Content="Flächenträgheitsmoment" HorizontalAlignment="Left" Margin="124,205,0,0" VerticalAlignment="Top"/>
+            <Label Content="Ixx" HorizontalAlignment="Left" Margin="326,208,0,0" VerticalAlignment="Top" RenderTransformOrigin="1.194,0.487"/>
+            <Label Content="Iyy" HorizontalAlignment="Left" Margin="325,239,0,0" VerticalAlignment="Top"/>
+            <Label Content="Berechnete Fläche" HorizontalAlignment="Left" Margin="326,50,0,0" VerticalAlignment="Top"/>
+            <Label Content="Berechnetes Volumen" HorizontalAlignment="Left" Margin="326,100,0,0" VerticalAlignment="Top"/>
+            <Label Content="Berechnetes Gewicht" HorizontalAlignment="Left" Margin="326,130,0,0" VerticalAlignment="Top"/>
+            <Label Content="Berechneter Preis" HorizontalAlignment="Left" Margin="326,153,0,0" VerticalAlignment="Top"/>
+            <TextBox x:Name="txtB_Ausgabe_Flaeche_Rohr" HorizontalAlignment="Left" Height="23" Margin="456,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <TextBox x:Name="txtB_Ausgabe_Volumen_Rohr" HorizontalAlignment="Left" Height="23" Margin="456,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <TextBox x:Name="txtB_Ausgabe_Gewicht_Rohr" HorizontalAlignment="Left" Height="23" Margin="456,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <TextBox x:Name="txtB_Ausgabe_Preis_Rohr" HorizontalAlignment="Left" Height="23" Margin="456,160,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <TextBox x:Name="txtB_Ausgabe_Ixx_Rohr" HorizontalAlignment="Left" Height="23" Margin="456,208,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <TextBox x:Name="txtB_Ausgabe_Iyy_Rohr" HorizontalAlignment="Left" Height="23" Margin="456,240,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <Button x:Name="btn_Fläche_Rohr" Content="Fläche berechnen" HorizontalAlignment="Left" Margin="626,50,0,0" VerticalAlignment="Top" Width="140" Height="23" Click="btn_Fläche_Rohr_Click"/>
+            <Button x:Name="btn_Volumen_Rohr" Content="Volumen berechnen" HorizontalAlignment="Left" Margin="626,99,0,0" VerticalAlignment="Top" Width="140" Height="23" Click="btn_Volumen_Rohr_Click"/>
+            <Button x:Name="btn_gewicht_Rohr" Content="Gewicht berechnen" HorizontalAlignment="Left" Margin="626,131,0,0" VerticalAlignment="Top" Width="140" Click="btn_gewicht_Rohr_Click" Height="23"/>
+            <Button x:Name="btn_preis_Rohr" Content="Preis berechnen" HorizontalAlignment="Left" Margin="626,160,0,0" VerticalAlignment="Top" Width="140" Click="btn_preis_Rohr_Click" Height="23"/>
+            <Button x:Name="btn_Flächenträgheitsmoment_Rohr" Content="Flächenträgheitsmoment" HorizontalAlignment="Left" Margin="626,209,0,0" VerticalAlignment="Top" Width="140" Height="54" Click="btn_Flächenträgheitsmoment_Rohr_Click"/>
+            <Button x:Name="btn_Eingabe_Löschen_Rohr" Content="Eingaben löschen" HorizontalAlignment="Left" Margin="626,356,0,0" VerticalAlignment="Top" Width="140" Height="46" Click="btn_Eingabe_Löschen_Rohr_Click"/>
+            <Image HorizontalAlignment="Left" Height="191" Margin="10,231,0,0" VerticalAlignment="Top" Width="175" Source="Bilder/rohr.png"/>
+            <Label Content="Rohrberechnung" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.482,0.5" FontWeight="Bold" FontStyle="Italic"/>
+
+            <Label x:Name="lbl_Auswahl" Content="" HorizontalAlignment="Left" Margin="10,414,0,0" VerticalAlignment="Top" Width="160"/>
+            <Button x:Name="btn_Werte_einlesen_Rohr" HorizontalAlignment="Left" Margin="466,356,0,0" VerticalAlignment="Top" Width="155" Height="46" MouseMove="btn_Werte_einlesen_Mouse_Move" MouseLeave="btn_Werte_einlesen_Mouse_Leave" Click="btn_Werte_einlesen_Rohr_Click">
+                <StackPanel>
+                    <TextBlock>Ergebnisse wieder einlesen</TextBlock>
+                    <Popup Name="Popup_Werte_Einlesen_Kreis"  IsOpen="False" Placement="Mouse" VerticalOffset="-50">
+                        <Border BorderThickness="1" BorderBrush="Black">
+                            <TextBlock Background="LightGray" FontSize="10" >
+                                Zuvor Berechnete Ergebnisse, welche sich im Arbeittspeicher befinden
+                            </TextBlock>
+                        </Border>
+
+                    </Popup>
+
+                </StackPanel>
+
+            </Button>
+            <Label Content="alle Schwerpunkte liegen im Mittelpunkt" HorizontalAlignment="Left" Margin="325,300,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="271,39,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="271,71,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm" HorizontalAlignment="Left" Margin="271,102,0,0" VerticalAlignment="Top"/>
+            <Label Content="g/mm³" HorizontalAlignment="Left" Margin="271,131,0,0" VerticalAlignment="Top"/>
+            <Label Content="€/g" HorizontalAlignment="Left" Margin="271,161,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm²" HorizontalAlignment="Left" Margin="581,50,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.395,0.192"/>
+            <Label Content="mm³" HorizontalAlignment="Left" Margin="581,99,0,0" VerticalAlignment="Top"/>
+            <Label Content="g" HorizontalAlignment="Left" Margin="581,130,0,0" VerticalAlignment="Top"/>
+            <Label Content="€" HorizontalAlignment="Left" Margin="581,158,0,0" VerticalAlignment="Top"/>
+            <Label Content="mm⁴" HorizontalAlignment="Left" Margin="581,209,0,0" VerticalAlignment="Top" Cursor=""/>
+            <Label Content="mm⁴" HorizontalAlignment="Left" Margin="581,240,0,0" VerticalAlignment="Top"/>
+            <Button x:Name="btn_Alle_Berechnungen_Durchführen_Rohr" Content="Alle Berechnungen&#xD;&#xA;     durchführen" HorizontalAlignment="Left" Margin="306,356,0,0" VerticalAlignment="Top" Width="155" Height="46" Click="btn_Alle_Berechnungen_Durchführen_Rohr_Click"/>
+        </Grid>
+        <Image x:Name="img_Begrüßung" HorizontalAlignment="Left" Height="452" Margin="213,10,0,0" VerticalAlignment="Top" Width="753" Source="Bilder/reindamit.PNG" Grid.ColumnSpan="2" Visibility="Hidden"/>
+    </Grid>
+</Window>
