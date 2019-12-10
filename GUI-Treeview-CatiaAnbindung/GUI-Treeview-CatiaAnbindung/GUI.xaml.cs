@@ -1312,11 +1312,51 @@ namespace GUI_Treeview_CatiaAnbindung
 
         private void btn_CATIA_Rechteck_Click(object sender, RoutedEventArgs e)
         {
-            cc.CatiaLauft();
-            cc.ErzeugePart();
-            cc.ErstelleLeereSkizze();
-            cc.ErzeugeProfilRechteck(mein_Rechteck.getLänge(), mein_Rechteck.getBreite());
-            cc.ErzeugeBalken(mein_Rechteck.getTiefe());
+            try
+            {
+                cc.CatiaLauft();
+                try
+                {
+                    cc.ErzeugePart();
+                    try
+                    {
+                        cc.ErstelleLeereSkizze();
+                        try
+                        {
+                            cc.ErzeugeProfilRechteck(mein_Rechteck.getLänge(), mein_Rechteck.getBreite());
+                            try
+                            {
+                                cc.ErzeugeBalken(mein_Rechteck.getTiefe());
+                            }
+                            catch
+                            {
+                                MessageBox.Show("Fehler beim Erzeugen des Körpers");
+                            }
+                        }
+                        catch
+                        {
+                            MessageBox.Show("Fehler beim Erzeugen des Profils");
+                        }
+                    }
+                    catch 
+                    {
+                        MessageBox.Show("Fehler beim Erstellen einer neuen Skizze");
+                    }
+                }
+                catch
+                {
+                    MessageBox.Show("Fehler bei der Erzeugung des Parts");
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Bitte überprüfen Sie, ob Catia läuft");
+            }
+            
+            
+           
+            
+            
         }
 
         private void btn_Catia_Doppel_T_Träger_Click(object sender, RoutedEventArgs e)
