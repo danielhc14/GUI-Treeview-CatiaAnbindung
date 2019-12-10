@@ -1366,7 +1366,8 @@ namespace GUI_Treeview_CatiaAnbindung
             cc.ErstelleLeereSkizze();
             cc.ErzeugeProfilDoppelTTräger(mein_doppel_T_Träger.getBreite(), mein_doppel_T_Träger.getHöhe());
             cc.ErzeugeBalkenDoppelTTräger(mein_doppel_T_Träger.getTiefe());
-            cc.ErzeugeTascheDoppelTTräger(mein_doppel_T_Träger.getBreite(),mein_doppel_T_Träger.getHöhe(),mein_doppel_T_Träger.gets(),mein_doppel_T_Träger.gett());
+            cc.ErzeugeSkizzeTascheDoppelTTräger(mein_doppel_T_Träger.getBreite(),mein_doppel_T_Träger.getHöhe(),mein_doppel_T_Träger.gets(),mein_doppel_T_Träger.gett());
+            cc.ErzeugeTascheDoppelTTräger(mein_doppel_T_Träger.getTiefe());
         }
     }
 }

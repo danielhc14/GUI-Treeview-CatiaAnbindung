@@ -20,6 +20,9 @@ namespace GUI_Treeview_CatiaAnbindung
         Sketch catiaSketch1;
         ProductDocument activedocproduct;
         Product product1;
+
+        Factory2D catFactory2DI;
+
         public bool CatiaLauft()
         {
             try
@@ -172,33 +175,33 @@ namespace GUI_Treeview_CatiaAnbindung
         {
             // Skizze umbenennen
             catiaSketch.set_Name("Doppel T-Träger");
-
+            
             // Rechteck in Skizze einzeichnen
             // Skizze oeffnen
-            Factory2D catFactory2D1 = catiaSketch.OpenEdition();
+            Factory2D catFactory2DI = catiaSketch.OpenEdition();
 
             // Rechteck erzeugen
 
             // erst die Punkte
-            Point2D catPoint2D1 = catFactory2D1.CreatePoint(-b, h);
-            Point2D catPoint2D2 = catFactory2D1.CreatePoint(b, h);
-            Point2D catPoint2D3 = catFactory2D1.CreatePoint(b, -h);
-            Point2D catPoint2D4 = catFactory2D1.CreatePoint(-b, -h);
+            Point2D catPoint2D1 = catFactory2DI.CreatePoint(-b/2, h/2);
+            Point2D catPoint2D2 = catFactory2DI.CreatePoint(b/2, h/2);
+            Point2D catPoint2D3 = catFactory2DI.CreatePoint(b/2, -h/2);
+            Point2D catPoint2D4 = catFactory2DI.CreatePoint(-b/2, -h/2);
 
             // dann die Linien
-            Line2D catLine2D1 = catFactory2D1.CreateLine(-b, h, b, h);
+            Line2D catLine2D1 = catFactory2DI.CreateLine(-b/2, h/2, b/2, h/2);
             catLine2D1.StartPoint = catPoint2D1;
             catLine2D1.EndPoint = catPoint2D2;
 
-            Line2D catLine2D2 = catFactory2D1.CreateLine(b, h, b, -h);
+            Line2D catLine2D2 = catFactory2DI.CreateLine(b/2, h/2, b/2, -h/2);
             catLine2D2.StartPoint = catPoint2D2;
             catLine2D2.EndPoint = catPoint2D3;
 
-            Line2D catLine2D3 = catFactory2D1.CreateLine(b, -h, -b, -h);
+            Line2D catLine2D3 = catFactory2DI.CreateLine(b/2, -h/2, -b/2, -h/2);
             catLine2D3.StartPoint = catPoint2D3;
             catLine2D3.EndPoint = catPoint2D4;
 
-            Line2D catLine2D4 = catFactory2D1.CreateLine(-b, -h, -b, h);
+            Line2D catLine2D4 = catFactory2DI.CreateLine(-b/2, -h/2, -b/2, h/2);
             catLine2D4.StartPoint = catPoint2D4;
             catLine2D4.EndPoint = catPoint2D1;
 
@@ -207,6 +210,7 @@ namespace GUI_Treeview_CatiaAnbindung
             // Part aktualisieren
             catiaPart.Part.Update();
         }
+        
         public void ErzeugeBalkenDoppelTTräger(Double l)
         {
             // Hauptkoerper in Bearbeitung definieren
@@ -222,7 +226,7 @@ namespace GUI_Treeview_CatiaAnbindung
             // Part aktualisieren
             catiaPart.Part.Update();
         }
-        public void ErzeugeTascheDoppelTTräger (double b, double h, double s, double t)
+        public void ErzeugeSkizzeTascheDoppelTTräger (double b, double h, double s, double t)
         {
             // Skizze umbenennen
             catiaSketch1.set_Name("Tasche");
@@ -238,17 +242,17 @@ namespace GUI_Treeview_CatiaAnbindung
             Point2D catPoint2D2 = catFactory2D1.CreatePoint(b/2, h/2-t);
             Point2D catPoint2D3 = catFactory2D1.CreatePoint(b/2, -(h/2-t));
             Point2D catPoint2D4 = catFactory2D1.CreatePoint(s/2, -(h/2-t));
-
+            
             // dann die Linien
             Line2D catLine2D1 = catFactory2D1.CreateLine(s/2, h/2-t, b/2, h/2-t);
             catLine2D1.StartPoint = catPoint2D1;
             catLine2D1.EndPoint = catPoint2D2;
 
-            Line2D catLine2D2 = catFactory2D1.CreateLine(b/2, h/2-t, b/s, -(h/2-t));
+            Line2D catLine2D2 = catFactory2D1.CreateLine(b/2, h/2-t, b/2, -(h/2-t));
             catLine2D2.StartPoint = catPoint2D2;
             catLine2D2.EndPoint = catPoint2D3;
 
-            Line2D catLine2D3 = catFactory2D1.CreateLine(b/2, -(h/2-t), s/2, h/2-t);
+            Line2D catLine2D3 = catFactory2D1.CreateLine(b/2, -(h/2-t), s/2, -(h/2-t));
             catLine2D3.StartPoint = catPoint2D3;
             catLine2D3.EndPoint = catPoint2D4;
 
@@ -256,8 +260,47 @@ namespace GUI_Treeview_CatiaAnbindung
             catLine2D4.StartPoint = catPoint2D4;
             catLine2D4.EndPoint = catPoint2D1;
 
+            // erst die Punkte
+            Point2D catPoint2D5 = catFactory2D1.CreatePoint(-s / 2, h / 2 - t);
+            Point2D catPoint2D6 = catFactory2D1.CreatePoint(-b / 2, h / 2 - t);
+            Point2D catPoint2D7 = catFactory2D1.CreatePoint(-b / 2, -(h / 2 - t));
+            Point2D catPoint2D8 = catFactory2D1.CreatePoint(-s / 2, -(h / 2 - t));
+
+            // dann die Linien
+            Line2D catLine2D5 = catFactory2D1.CreateLine(-s / 2, h / 2 - t, -b / 2, h / 2 - t);
+            catLine2D1.StartPoint = catPoint2D1;
+            catLine2D1.EndPoint = catPoint2D2;
+
+            Line2D catLine2D6 = catFactory2D1.CreateLine(-b / 2, h / 2 - t, -b / 2, -(h / 2 - t));
+            catLine2D2.StartPoint = catPoint2D2;
+            catLine2D2.EndPoint = catPoint2D3;
+
+            Line2D catLine2D7 = catFactory2D1.CreateLine(-b / 2, -(h / 2 - t), -s / 2, -(h / 2 - t));
+            catLine2D3.StartPoint = catPoint2D3;
+            catLine2D3.EndPoint = catPoint2D4;
+
+            Line2D catLine2D8 = catFactory2D1.CreateLine(-s / 2, -(h / 2 - t), -s / 2, h / 2 - t);
+            catLine2D4.StartPoint = catPoint2D4;
+            catLine2D4.EndPoint = catPoint2D1;
+
             // Skizzierer verlassen
             catiaSketch1.CloseEdition();
+            // Part aktualisieren
+            catiaPart.Part.Update();
+        }
+        public void ErzeugeTascheDoppelTTräger(double l)
+        {
+            // Hauptkoerper in Bearbeitung definieren
+            catiaPart.Part.InWorkObject = catiaPart.Part.MainBody;
+
+            // Block(Balken) erzeugen
+            ShapeFactory catShapeFactory2 = (ShapeFactory)catiaPart.Part.ShapeFactory;
+            Pocket catPocket = catShapeFactory2.AddNewPocket(catiaSketch1, -l);
+            /*Limit catLimit = catPocket.FirstLimit;
+            catLimit.LimitMode = catPocket.SecondLimit*/
+            // Block umbenennen
+            catPocket.set_Name("Tasche");
+
             // Part aktualisieren
             catiaPart.Part.Update();
         }
