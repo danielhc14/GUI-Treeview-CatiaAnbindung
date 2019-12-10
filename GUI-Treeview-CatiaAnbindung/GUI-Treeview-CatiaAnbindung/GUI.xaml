@@ -352,6 +352,6 @@
             <Label Content="mm⁴" HorizontalAlignment="Left" Margin="581,240,0,0" VerticalAlignment="Top"/>
             <Button x:Name="btn_Alle_Berechnungen_Durchführen_Rohr" Content="Alle Berechnungen&#xD;&#xA;     durchführen" HorizontalAlignment="Left" Margin="306,356,0,0" VerticalAlignment="Top" Width="155" Height="46" Click="btn_Alle_Berechnungen_Durchführen_Rohr_Click"/>
         </Grid>
-        <Image x:Name="img_Begrüßung" HorizontalAlignment="Left" Height="452" Margin="213,10,0,0" VerticalAlignment="Top" Width="753" Source="Bilder/reindamit.PNG" Grid.ColumnSpan="2" Visibility="Hidden"/>
+        <Image x:Name="img_Begrüßung" HorizontalAlignment="Left" Height="452" Margin="213,10,0,0" VerticalAlignment="Top" Width="753" Source="Bilder/reindamit.PNG" Grid.ColumnSpan="2" Visibility="Visible"/>
     </Grid>
 </Window>
