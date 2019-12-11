@@ -149,5 +149,27 @@ namespace GUI_Treeview_CatiaAnbindung
             callingGUI.txb_kreis_dichte.Background = Brushes.White;
             callingGUI.txb_kreis_preis.Background = Brushes.White;
         }
+
+        public void setDurchmesser(double durchmesser1)
+        {
+            //Setzen des Durchmessers für CATIA
+            durchmesser = durchmesser1;
+        }
+        public double getDurchmesser()
+        {
+            //Holen des DUrchmessers für Übertragung an CATIA
+            return durchmesser;
+        }
+
+        public void setLaenge(double laenge1)
+        {
+            //setzen der Länge (für Catia benötigt)
+            laenge = laenge1;
+        }
+        public double getLaenge()
+        {
+            //Holen der Länge, um dies an Catia zu übertragen
+            return laenge;
+        }
     }
 }

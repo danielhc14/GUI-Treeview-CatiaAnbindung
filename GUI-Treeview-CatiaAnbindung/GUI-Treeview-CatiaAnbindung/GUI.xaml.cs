@@ -716,6 +716,8 @@ namespace GUI_Treeview_CatiaAnbindung
             {
                 //Bei Richtiger Eingabe wird der Hintergrund der Textbox Weiß gefärbt
                 txb_kreis_durchmesser.Background = Brushes.White;
+                //Übergabe CATIA
+                mein_Kreis.setDurchmesser(durchmesser);
             }
         }
 
@@ -740,6 +742,8 @@ namespace GUI_Treeview_CatiaAnbindung
             {
                 //Bei Richtiger Eingabe wird der Hintergrund der Textbox Weiß gefärbt
                 txb_kreis_laenge.Background = Brushes.White;
+                //Übergabe CATIA
+                mein_Kreis.setLaenge(laenge);
             }
         }
 
@@ -1346,6 +1350,23 @@ namespace GUI_Treeview_CatiaAnbindung
             }
            
            
+        }
+
+        private void btn_Catia_Kreis_Click(object sender, RoutedEventArgs e)
+        {
+            cc.CatiaLauft();
+            try
+            {
+                cc.ErzeugePart();
+                cc.ErstelleLeereSkizze();
+                skizzeerstellt = cc.ErzeugeProfilKreis(mein_Kreis.getDurchmesser());
+                cc.ErzeugeStange(mein_Kreis.getLaenge(), skizzeerstellt);
+            }
+            catch
+            {
+
+            }
+
         }
     }
 }
