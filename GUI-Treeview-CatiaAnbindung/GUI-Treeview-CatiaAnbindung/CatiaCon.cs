@@ -408,6 +408,137 @@ namespace GUI_Treeview_CatiaAnbindung
             
             return skizzeerstellt;
         }
+        public bool ErzeugeProfilRohr(Double Ad)
+        {
+            if (Ad >0)
+            {
+                // Skizze umbenennen
+                catiaSketch.set_Name("Rohr");
+
+            // Rechteck in Skizze einzeichnen
+            // Skizze oeffnen
+            Factory2D catFactory2D1 = catiaSketch.OpenEdition();
+
+            Circle2D circle2D1 = catFactory2D1.CreateClosedCircle(0.000000, 0.000000, 20.000000);
+            Point2D catPoint2D1 = catFactory2D1.CreatePoint(0, 0);
+            circle2D1.CenterPoint = catPoint2D1;
+
+            catiaSketch.CloseEdition();
+            catiaPart.Part.Update();
+                skizzeerstellt = true;
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Erstellen des Profils:\rDie Werte dürfen nicht null sein!");
+                skizzeerstellt = false;
+            }
+            return skizzeerstellt;
+
+        }
+        public bool ErzeugeBalkenRohr(Double l, bool skizzeerstellt)
+        {
+            if (skizzeerstellt == true)
+            {
+                if (l > 0)
+                {
+                    // Hauptkoerper in Bearbeitung definieren
+                    catiaPart.Part.InWorkObject = catiaPart.Part.MainBody;
+
+            // Block(Balken) erzeugen
+            ShapeFactory catShapeFactory1 = (ShapeFactory)catiaPart.Part.ShapeFactory;
+            Pad catPad1 = catShapeFactory1.AddNewPad(catiaSketch, l);
+
+            // Block umbenennen
+            catPad1.set_Name("BalkenRohr");
+
+            // Part aktualisieren
+            catiaPart.Part.Update();
+                }
+                else
+                {
+                    MessageBox.Show("Fehler beim Erstellen des Körpers:\rDer Werte darf nicht null sein!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Ezeugen des Körpers:\rEs konnte keine Skizze gefunden werden!");
+            }
+
+            return skizzeerstellt;
+        }
+        public bool ErzeugeProfilTascheRohr(Double Id, bool skizzeerstellt)
+        {
+            if (skizzeerstellt == true)
+            {
+                if (Id > 0)
+                {
+                    // Skizze umbenennen
+                    catiaSketch1.set_Name("Rohrinnen");
+
+            // Rechteck in Skizze einzeichnen
+            // Skizze oeffnen
+            Factory2D catFactory2D1 = catiaSketch1.OpenEdition();
+
+            Circle2D circle2D1 = catFactory2D1.CreateClosedCircle(0.000000, 0.000000, 20.000000);
+            Point2D catPoint2D1 = catFactory2D1.CreatePoint(0, 0);
+            circle2D1.CenterPoint = catPoint2D1;
+
+            catiaSketch1.CloseEdition();
+            catiaPart.Part.Update();
+                    skizzeerstellt = true;
+                }
+                else
+                {
+                    MessageBox.Show("Fehler beim Erstellen des Profils:\rDie Werte dürfen nicht null sein!");
+                    skizzeerstellt = false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Erstellen des Profils:\rEs konnte keine Skizze erstellt werden!");
+                skizzeerstellt = false;
+            }
+
+
+            return skizzeerstellt;
+
+        }
+        public bool ErzeugeTascheRohr(double l, bool skizzeerstellt)
+        {
+            if (skizzeerstellt == true)
+            {
+                if (l > 0)
+                {
+                    // Hauptkoerper in Bearbeitung definieren
+                    catiaPart.Part.InWorkObject = catiaPart.Part.MainBody;
+
+            // Block(Balken) erzeugen
+            ShapeFactory catShapeFactory2 = (ShapeFactory)catiaPart.Part.ShapeFactory;
+            Pocket catPocket = catShapeFactory2.AddNewPocket(catiaSketch1, -l);
+            /*Limit catLimit = catPocket.FirstLimit;
+            catLimit.LimitMode = catPocket.SecondLimit*/
+            // Block umbenennen
+            catPocket.set_Name("TascheRohr");
+
+            // Part aktualisieren
+            catiaPart.Part.Update();
+                    skizzeerstellt = true;
+                }
+                else
+                {
+                    skizzeerstellt = false;
+                    MessageBox.Show("Fehler beim Erzeugen der Tasche:\rDer Werte darf nicht null sein!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Erzeugen der Tasche:\rEs wurde keine Skizze gefunden!");
+                skizzeerstellt = false;
+            }
+
+
+            return skizzeerstellt;
+        }
         public CatiaCon()
         {
 
