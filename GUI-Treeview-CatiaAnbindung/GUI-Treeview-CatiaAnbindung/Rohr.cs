@@ -164,5 +164,35 @@ namespace GUI_Treeview_CatiaAnbindung
             callingGUI.txtB_Preis_Rohr.Background = Brushes.White;
             callingGUI.txtB_Dichte_Rohr.Background = Brushes.White;
         }
+        public void setADurchmesser(double aussendurchmesser1)
+        {
+            //Setzen des Durchmessers für CATIA
+            aussendurchmesser = aussendurchmesser1;
+        }
+        public double getADurchmesser()
+        {
+            //Holen des DUrchmessers für Übertragung an CATIA
+            return aussendurchmesser;
+        }
+        public void setIDurchmesser(double innendurchmesser1)
+        {
+            //Setzen des Durchmessers für CATIA
+            innendurchmesser = innendurchmesser1;
+        }
+        public double getIDurchmesser()
+        {
+            //Holen des DUrchmessers für Übertragung an CATIA
+            return innendurchmesser;
+        }
+        public void setLaenge(double laenge1)
+        {
+            //setzen der Länge (für Catia benötigt)
+            laenge = laenge1;
+        }
+        public double getLaenge()
+        {
+            //Holen der Länge, um dies an Catia zu übertragen
+            return laenge;
+        }
     }
 }

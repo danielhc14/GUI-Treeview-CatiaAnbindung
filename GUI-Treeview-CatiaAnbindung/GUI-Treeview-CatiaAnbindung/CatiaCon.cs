@@ -468,10 +468,10 @@ namespace GUI_Treeview_CatiaAnbindung
             return skizzeerstellt;
         }
 
-        /*
-        public bool ErzeugeProfilRohr(Double Ad)
+        
+        public bool ErzeugeProfilRohr(Double aussendurchmesser)
         {
-            if (Ad >0)
+            if (aussendurchmesser >0)
             {
                 // Skizze umbenennen
                 catiaSketch.set_Name("Rohr");
@@ -528,11 +528,11 @@ namespace GUI_Treeview_CatiaAnbindung
 
             return skizzeerstellt;
         }
-        public bool ErzeugeProfilTascheRohr(Double Id, bool skizzeerstellt)
+        public bool ErzeugeProfilTascheRohr(Double innendurchmesser, bool skizzeerstellt)
         {
             if (skizzeerstellt == true)
             {
-                if (Id > 0)
+                if (innendurchmesser > 0)
                 {
                     // Skizze umbenennen
                     catiaSketch1.set_Name("Rohrinnen");
@@ -577,8 +577,8 @@ namespace GUI_Treeview_CatiaAnbindung
             // Block(Balken) erzeugen
             ShapeFactory catShapeFactory2 = (ShapeFactory)catiaPart.Part.ShapeFactory;
             Pocket catPocket = catShapeFactory2.AddNewPocket(catiaSketch1, -l);
-            /*Limit catLimit = catPocket.FirstLimit;
-            catLimit.LimitMode = catPocket.SecondLimit
+           
+           
             // Block umbenennen
             catPocket.set_Name("TascheRohr");
 
@@ -601,7 +601,7 @@ namespace GUI_Treeview_CatiaAnbindung
 
             return skizzeerstellt;
         } 
-        */
+        
 
         public CatiaCon()
         {

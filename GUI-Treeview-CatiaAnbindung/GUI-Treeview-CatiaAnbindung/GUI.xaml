@@ -289,7 +289,7 @@
 
 
         </Grid>
-        <Grid x:Name="Grid_Rohr" HorizontalAlignment="Left" Height="432" Margin="175,10,0,0" VerticalAlignment="Top" Width="815" Grid.ColumnSpan="2" Visibility="Hidden">
+        <Grid x:Name="Grid_Rohr" HorizontalAlignment="Left" Height="432" Margin="165,29,0,0" VerticalAlignment="Top" Width="815" Grid.ColumnSpan="2" Visibility="Hidden">
             <Label Content="Aussendurchmesser eingeben:" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="txtB_Aussendurchmesser_Rohr" HorizontalAlignment="Left" Height="23" Margin="186,39,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" GotFocus="txtB_Aussendurchmesser_Rohr_Focus" LostFocus="txtB_aussendurchmesser_Rohr_Lost_Focus" TextAlignment="Right"/>
             <Label Content="Innendurchmesser eingeben:" HorizontalAlignment="Left" Margin="10,68,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.191,-0.409"/>
@@ -307,6 +307,7 @@
             <Label Content="Berechnetes Volumen" HorizontalAlignment="Left" Margin="326,100,0,0" VerticalAlignment="Top"/>
             <Label Content="Berechnetes Gewicht" HorizontalAlignment="Left" Margin="326,130,0,0" VerticalAlignment="Top"/>
             <Label Content="Berechneter Preis" HorizontalAlignment="Left" Margin="326,153,0,0" VerticalAlignment="Top"/>
+
             <TextBox x:Name="txtB_Ausgabe_Flaeche_Rohr" HorizontalAlignment="Left" Height="23" Margin="456,50,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
             <TextBox x:Name="txtB_Ausgabe_Volumen_Rohr" HorizontalAlignment="Left" Height="23" Margin="456,99,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
             <TextBox x:Name="txtB_Ausgabe_Gewicht_Rohr" HorizontalAlignment="Left" Height="23" Margin="456,131,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
@@ -351,6 +352,7 @@
             <Label Content="mm⁴" HorizontalAlignment="Left" Margin="581,209,0,0" VerticalAlignment="Top" Cursor=""/>
             <Label Content="mm⁴" HorizontalAlignment="Left" Margin="581,240,0,0" VerticalAlignment="Top"/>
             <Button x:Name="btn_Alle_Berechnungen_Durchführen_Rohr" Content="Alle Berechnungen&#xD;&#xA;     durchführen" HorizontalAlignment="Left" Margin="306,356,0,0" VerticalAlignment="Top" Width="155" Height="46" Click="btn_Alle_Berechnungen_Durchführen_Rohr_Click"/>
+            <Button Content="An Catia übertragen" HorizontalAlignment="Left" VerticalAlignment="Top" Width="152" Height="46" Margin="148,356,0,0" Click="btn_Catia_RohrClick"/>
         </Grid>
         <Image x:Name="img_Begrüßung" HorizontalAlignment="Left" Height="452" Margin="213,10,0,0" VerticalAlignment="Top" Width="753" Source="Bilder/reindamit.PNG" Grid.ColumnSpan="2" Visibility="Visible"/>
     </Grid>
