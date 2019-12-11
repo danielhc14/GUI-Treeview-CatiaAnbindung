@@ -51,6 +51,7 @@ namespace GUI_Treeview_CatiaAnbindung
         private double höhe;
         private double s;
         private double t;
+        private bool skizzeerstellt;
 
         private double durchmesser;
         private double Pi = Math.PI;
@@ -1312,62 +1313,39 @@ namespace GUI_Treeview_CatiaAnbindung
 
         private void btn_CATIA_Rechteck_Click(object sender, RoutedEventArgs e)
         {
+            cc.CatiaLauft();
             try
             {
-                cc.CatiaLauft();
-                try
-                {
-                    cc.ErzeugePart();
-                    try
-                    {
-                        cc.ErstelleLeereSkizze();
-                        try
-                        {
-                            cc.ErzeugeProfilRechteck(mein_Rechteck.getLänge(), mein_Rechteck.getBreite());
-                            try
-                            {
-                                cc.ErzeugeBalken(mein_Rechteck.getTiefe());
-                            }
-                            catch
-                            {
-                                MessageBox.Show("Fehler beim Erzeugen des Körpers");
-                            }
-                        }
-                        catch
-                        {
-                            MessageBox.Show("Fehler beim Erzeugen des Profils");
-                        }
-                    }
-                    catch 
-                    {
-                        MessageBox.Show("Fehler beim Erstellen einer neuen Skizze");
-                    }
-                }
-                catch
-                {
-                    MessageBox.Show("Fehler bei der Erzeugung des Parts");
-                }
+                cc.ErzeugePart();
+                cc.ErstelleLeereSkizze();
+                skizzeerstellt = cc.ErzeugeProfilRechteck(mein_Rechteck.getLänge(), mein_Rechteck.getBreite());
+                cc.ErzeugeBalken(mein_Rechteck.getTiefe(), skizzeerstellt);
             }
             catch
             {
-                MessageBox.Show("Bitte überprüfen Sie, ob Catia läuft");
+
             }
-            
-            
-           
-            
-            
+
         }
 
         private void btn_Catia_Doppel_T_Träger_Click(object sender, RoutedEventArgs e)
         {
             cc.CatiaLauft();
-            cc.ErzeugePart();
-            cc.ErstelleLeereSkizze();
-            cc.ErzeugeProfilDoppelTTräger(mein_doppel_T_Träger.getBreite(), mein_doppel_T_Träger.getHöhe());
-            cc.ErzeugeBalkenDoppelTTräger(mein_doppel_T_Träger.getTiefe());
-            cc.ErzeugeSkizzeTascheDoppelTTräger(mein_doppel_T_Träger.getBreite(),mein_doppel_T_Träger.getHöhe(),mein_doppel_T_Träger.gets(),mein_doppel_T_Träger.gett());
-            cc.ErzeugeTascheDoppelTTräger(mein_doppel_T_Träger.getTiefe());
+            try
+            {
+                cc.ErzeugePart();
+                cc.ErstelleLeereSkizze();
+                skizzeerstellt = cc.ErzeugeProfilDoppelTTräger(mein_doppel_T_Träger.getBreite(), mein_doppel_T_Träger.getHöhe());
+                skizzeerstellt = cc.ErzeugeBalkenDoppelTTräger(mein_doppel_T_Träger.getTiefe(), skizzeerstellt);
+                skizzeerstellt = cc.ErzeugeSkizzeTascheDoppelTTräger(mein_doppel_T_Träger.getBreite(), mein_doppel_T_Träger.getHöhe(), mein_doppel_T_Träger.gets(), mein_doppel_T_Träger.gett(),skizzeerstellt);
+                skizzeerstellt = cc.ErzeugeTascheDoppelTTräger(mein_doppel_T_Träger.getTiefe(),skizzeerstellt);
+            }
+            catch
+            {
+
+            }
+           
+           
         }
     }
 }

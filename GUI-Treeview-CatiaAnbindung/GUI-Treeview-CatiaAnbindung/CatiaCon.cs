@@ -21,7 +21,7 @@ namespace GUI_Treeview_CatiaAnbindung
         ProductDocument activedocproduct;
         Product product1;
 
-        Factory2D catFactory2DI;
+        private bool skizzeerstellt;
 
         public bool CatiaLauft()
         {
@@ -116,193 +116,297 @@ namespace GUI_Treeview_CatiaAnbindung
             catiaSketch.SetAbsoluteAxisData(arr);
         }
 
-        public void ErzeugeProfilRechteck(Double b, Double h)
+        public bool ErzeugeProfilRechteck(Double b, Double h)
         {
-            // Skizze umbenennen
-            catiaSketch.set_Name("Rechteck");
+            if (b == 0 & h == 0)
+            {
+                MessageBox.Show("Fehler beim Erstellen des Profils:\rDie Werte dürfen nicht null sein!");
+                skizzeerstellt = false;
+            }
+            else
+            {
+                b = b / 2;
+                h = h / 2;
+                // Skizze umbenennen
+                catiaSketch.set_Name("Rechteck");
 
-            // Rechteck in Skizze einzeichnen
-            // Skizze oeffnen
-            Factory2D catFactory2D1 = catiaSketch.OpenEdition();
+                // Rechteck in Skizze einzeichnen
+                // Skizze oeffnen
+                Factory2D catFactory2D1 = catiaSketch.OpenEdition();
 
-            // Rechteck erzeugen
+                // Rechteck erzeugen
 
-            // erst die Punkte
-            Point2D catPoint2D1 = catFactory2D1.CreatePoint(-50, 50);
-            Point2D catPoint2D2 = catFactory2D1.CreatePoint(50, 50);
-            Point2D catPoint2D3 = catFactory2D1.CreatePoint(50, -50);
-            Point2D catPoint2D4 = catFactory2D1.CreatePoint(-50, -50);
+                // erst die Punkte
+                Point2D catPoint2D1 = catFactory2D1.CreatePoint(-b, h);
+                Point2D catPoint2D2 = catFactory2D1.CreatePoint(b, h);
+                Point2D catPoint2D3 = catFactory2D1.CreatePoint(b, -h);
+                Point2D catPoint2D4 = catFactory2D1.CreatePoint(-b, -h);
 
-            // dann die Linien
-            Line2D catLine2D1 = catFactory2D1.CreateLine(-50, 50, 50, 50);
-            catLine2D1.StartPoint = catPoint2D1;
-            catLine2D1.EndPoint = catPoint2D2;
+                // dann die Linien
+                Line2D catLine2D1 = catFactory2D1.CreateLine(-b, h, b, h);
+                catLine2D1.StartPoint = catPoint2D1;
+                catLine2D1.EndPoint = catPoint2D2;
 
-            Line2D catLine2D2 = catFactory2D1.CreateLine(50, 50, 50, -50);
-            catLine2D2.StartPoint = catPoint2D2;
-            catLine2D2.EndPoint = catPoint2D3;
+                Line2D catLine2D2 = catFactory2D1.CreateLine(b, h, b, -h);
+                catLine2D2.StartPoint = catPoint2D2;
+                catLine2D2.EndPoint = catPoint2D3;
 
-            Line2D catLine2D3 = catFactory2D1.CreateLine(50, -50, -50, -50);
-            catLine2D3.StartPoint = catPoint2D3;
-            catLine2D3.EndPoint = catPoint2D4;
+                Line2D catLine2D3 = catFactory2D1.CreateLine(b, -h, -b, -h);
+                catLine2D3.StartPoint = catPoint2D3;
+                catLine2D3.EndPoint = catPoint2D4;
 
-            Line2D catLine2D4 = catFactory2D1.CreateLine(-50, -50, -50, 50);
-            catLine2D4.StartPoint = catPoint2D4;
-            catLine2D4.EndPoint = catPoint2D1;
+                Line2D catLine2D4 = catFactory2D1.CreateLine(-b, -h, -b, h);
+                catLine2D4.StartPoint = catPoint2D4;
+                catLine2D4.EndPoint = catPoint2D1;
 
-            // Skizzierer verlassen
-            catiaSketch.CloseEdition();
-            // Part aktualisieren
-            catiaPart.Part.Update();
+                // Skizzierer verlassen
+                catiaSketch.CloseEdition();
+                // Part aktualisieren
+                catiaPart.Part.Update();
+                skizzeerstellt = true;
+            }
+            return skizzeerstellt;
         }
 
-        public void ErzeugeBalken(Double l)
+        public void ErzeugeBalken(Double l, bool skizzeerstellt)
         {
             // Hauptkoerper in Bearbeitung definieren
             catiaPart.Part.InWorkObject = catiaPart.Part.MainBody;
+            if (skizzeerstellt == true)
+            {
+                if (l > 0)
+                {
+                    // Hauptkoerper in Bearbeitung definieren
+                    catiaPart.Part.InWorkObject = catiaPart.Part.MainBody;
 
-            // Block(Balken) erzeugen
-            ShapeFactory catShapeFactory1 = (ShapeFactory)catiaPart.Part.ShapeFactory;
-            Pad catPad1 = catShapeFactory1.AddNewPad(catiaSketch, l);
+                    // Block(Balken) erzeugen
+                    ShapeFactory catShapeFactory1 = (ShapeFactory)catiaPart.Part.ShapeFactory;
+                    Pad catPad1 = catShapeFactory1.AddNewPad(catiaSketch, l);
 
-            // Block umbenennen
-            catPad1.set_Name("Balken");
+                    // Block umbenennen
+                    catPad1.set_Name("Balken");
+                    // Block umbenennen
+                    catPad1.set_Name("Balken");
 
-            // Part aktualisieren
-            catiaPart.Part.Update();
+                    // Part aktualisieren
+                    catiaPart.Part.Update();
+                    // Part aktualisieren
+                    catiaPart.Part.Update();
+                }
+                else
+                {
+                    MessageBox.Show("Fehler beim Erzeugen des Körpers:\rDer Werte darf nicht null sein!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Erzeugen des Körpers:\rEs konnte keine Skizze erstellt werden!");
+            }
         }
-        public void ErzeugeProfilDoppelTTräger(Double b, Double h)
+        public bool ErzeugeProfilDoppelTTräger(Double b, Double h)
         {
-            // Skizze umbenennen
-            catiaSketch.set_Name("Doppel T-Träger");
-            
-            // Rechteck in Skizze einzeichnen
-            // Skizze oeffnen
-            Factory2D catFactory2DI = catiaSketch.OpenEdition();
+            b = b / 2;
+            h = h / 2;
+            if (b > 0 & h > 0)
+            {
+                // Skizze umbenennen
+                catiaSketch.set_Name("Doppel T-Träger");
 
-            // Rechteck erzeugen
+                // Rechteck in Skizze einzeichnen
+                // Skizze oeffnen
+                Factory2D catFactory2D1 = catiaSketch.OpenEdition();
 
-            // erst die Punkte
-            Point2D catPoint2D1 = catFactory2DI.CreatePoint(-b/2, h/2);
-            Point2D catPoint2D2 = catFactory2DI.CreatePoint(b/2, h/2);
-            Point2D catPoint2D3 = catFactory2DI.CreatePoint(b/2, -h/2);
-            Point2D catPoint2D4 = catFactory2DI.CreatePoint(-b/2, -h/2);
+                // Rechteck erzeugen
 
-            // dann die Linien
-            Line2D catLine2D1 = catFactory2DI.CreateLine(-b/2, h/2, b/2, h/2);
-            catLine2D1.StartPoint = catPoint2D1;
-            catLine2D1.EndPoint = catPoint2D2;
+                // erst die Punkte
+                Point2D catPoint2D1 = catFactory2D1.CreatePoint(-b, h);
+                Point2D catPoint2D2 = catFactory2D1.CreatePoint(b, h);
+                Point2D catPoint2D3 = catFactory2D1.CreatePoint(b, -h);
+                Point2D catPoint2D4 = catFactory2D1.CreatePoint(-b, -h);
 
-            Line2D catLine2D2 = catFactory2DI.CreateLine(b/2, h/2, b/2, -h/2);
-            catLine2D2.StartPoint = catPoint2D2;
-            catLine2D2.EndPoint = catPoint2D3;
+                // dann die Linien
+                Line2D catLine2D1 = catFactory2D1.CreateLine(-b, h, b, h);
+                catLine2D1.StartPoint = catPoint2D1;
+                catLine2D1.EndPoint = catPoint2D2;
 
-            Line2D catLine2D3 = catFactory2DI.CreateLine(b/2, -h/2, -b/2, -h/2);
-            catLine2D3.StartPoint = catPoint2D3;
-            catLine2D3.EndPoint = catPoint2D4;
+                Line2D catLine2D2 = catFactory2D1.CreateLine(b, h, b, -h);
+                catLine2D2.StartPoint = catPoint2D2;
+                catLine2D2.EndPoint = catPoint2D3;
 
-            Line2D catLine2D4 = catFactory2DI.CreateLine(-b/2, -h/2, -b/2, h/2);
-            catLine2D4.StartPoint = catPoint2D4;
-            catLine2D4.EndPoint = catPoint2D1;
+                Line2D catLine2D3 = catFactory2D1.CreateLine(b, -h, -b, -h);
+                catLine2D3.StartPoint = catPoint2D3;
+                catLine2D3.EndPoint = catPoint2D4;
 
-            // Skizzierer verlassen
-            catiaSketch.CloseEdition();
-            // Part aktualisieren
-            catiaPart.Part.Update();
+                Line2D catLine2D4 = catFactory2D1.CreateLine(-b, -h, -b, h);
+                catLine2D4.StartPoint = catPoint2D4;
+                catLine2D4.EndPoint = catPoint2D1;
+
+                // Skizzierer verlassen
+                catiaSketch.CloseEdition();
+                // Part aktualisieren
+                catiaPart.Part.Update();
+                skizzeerstellt = true;
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Erstellen des Profils:\rDie Werte dürfen nicht null sein!");
+                skizzeerstellt = false;
+            }
+            return skizzeerstellt;
         }
         
-        public void ErzeugeBalkenDoppelTTräger(Double l)
+        public bool ErzeugeBalkenDoppelTTräger(Double l,bool skizzeerstellt)
         {
-            // Hauptkoerper in Bearbeitung definieren
-            catiaPart.Part.InWorkObject = catiaPart.Part.MainBody;
+            if (skizzeerstellt == true)
+            {
+                if (l > 0)
+                {
+                    // Hauptkoerper in Bearbeitung definieren
+                    catiaPart.Part.InWorkObject = catiaPart.Part.MainBody;
 
-            // Block(Balken) erzeugen
-            ShapeFactory catShapeFactory1 = (ShapeFactory)catiaPart.Part.ShapeFactory;
-            Pad catPad1 = catShapeFactory1.AddNewPad(catiaSketch, l);
+                    // Block(Balken) erzeugen
+                    ShapeFactory catShapeFactory1 = (ShapeFactory)catiaPart.Part.ShapeFactory;
+                    Pad catPad1 = catShapeFactory1.AddNewPad(catiaSketch, l);                   
 
-            // Block umbenennen
-            catPad1.set_Name("Balken");
+                    // Block umbenennen
+                    catPad1.set_Name("Balken");
+                    // Block umbenennen
+                    catPad1.set_Name("Balken");
 
-            // Part aktualisieren
-            catiaPart.Part.Update();
+                    // Part aktualisieren
+                    catiaPart.Part.Update();
+                    // Part aktualisieren
+                    catiaPart.Part.Update();
+                }
+                else
+                {
+                    MessageBox.Show("Fehler beim Erstellen des Körpers:\rDer Werte darf nicht null sein!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Ezeugen des Körpers:\rEs konnte keine Skizze gefunden werden!");
+            }
+
+            return skizzeerstellt;
         }
-        public void ErzeugeSkizzeTascheDoppelTTräger (double b, double h, double s, double t)
+        public bool ErzeugeSkizzeTascheDoppelTTräger (double b, double h, double s, double t, bool skizzeerstellt)
         {
-            // Skizze umbenennen
-            catiaSketch1.set_Name("Tasche");
+            if (skizzeerstellt==true)
+            {
+                if (b>0&h>0&s>0&t>0)
+                {
+                    // Skizze umbenennen
+                    catiaSketch1.set_Name("Tasche");
 
-            // Rechteck in Skizze einzeichnen
-            // Skizze oeffnen
-            Factory2D catFactory2D1 = catiaSketch1.OpenEdition();
+                    // Rechteck in Skizze einzeichnen
+                    // Skizze oeffnen
+                    Factory2D catFactory2D1 = catiaSketch1.OpenEdition();
 
-            // Rechteck erzeugen
+                    // Rechteck erzeugen
 
-            // erst die Punkte
-            Point2D catPoint2D1 = catFactory2D1.CreatePoint(s/2, h/2-t);
-            Point2D catPoint2D2 = catFactory2D1.CreatePoint(b/2, h/2-t);
-            Point2D catPoint2D3 = catFactory2D1.CreatePoint(b/2, -(h/2-t));
-            Point2D catPoint2D4 = catFactory2D1.CreatePoint(s/2, -(h/2-t));
+                    // erst die Punkte
+                    Point2D catPoint2D1 = catFactory2D1.CreatePoint(s / 2, h / 2 - t);
+                    Point2D catPoint2D2 = catFactory2D1.CreatePoint(b / 2, h / 2 - t);
+                    Point2D catPoint2D3 = catFactory2D1.CreatePoint(b / 2, -(h / 2 - t));
+                    Point2D catPoint2D4 = catFactory2D1.CreatePoint(s / 2, -(h / 2 - t));
+
+                    // dann die Linien
+                    Line2D catLine2D1 = catFactory2D1.CreateLine(s / 2, h / 2 - t, b / 2, h / 2 - t);
+                    catLine2D1.StartPoint = catPoint2D1;
+                    catLine2D1.EndPoint = catPoint2D2;
+
+                    Line2D catLine2D2 = catFactory2D1.CreateLine(b / 2, h / 2 - t, b / 2, -(h / 2 - t));
+                    catLine2D2.StartPoint = catPoint2D2;
+                    catLine2D2.EndPoint = catPoint2D3;
+
+                    Line2D catLine2D3 = catFactory2D1.CreateLine(b / 2, -(h / 2 - t), s / 2, -(h / 2 - t));
+                    catLine2D3.StartPoint = catPoint2D3;
+                    catLine2D3.EndPoint = catPoint2D4;
+
+                    Line2D catLine2D4 = catFactory2D1.CreateLine(s / 2, -(h / 2 - t), s / 2, h / 2 - t);
+                    catLine2D4.StartPoint = catPoint2D4;
+                    catLine2D4.EndPoint = catPoint2D1;
+
+                    // erst die Punkte
+                    Point2D catPoint2D5 = catFactory2D1.CreatePoint(-s / 2, h / 2 - t);
+                    Point2D catPoint2D6 = catFactory2D1.CreatePoint(-b / 2, h / 2 - t);
+                    Point2D catPoint2D7 = catFactory2D1.CreatePoint(-b / 2, -(h / 2 - t));
+                    Point2D catPoint2D8 = catFactory2D1.CreatePoint(-s / 2, -(h / 2 - t));
+
+                    // dann die Linien
+                    Line2D catLine2D5 = catFactory2D1.CreateLine(-s / 2, h / 2 - t, -b / 2, h / 2 - t);
+                    catLine2D1.StartPoint = catPoint2D1;
+                    catLine2D1.EndPoint = catPoint2D2;
+
+                    Line2D catLine2D6 = catFactory2D1.CreateLine(-b / 2, h / 2 - t, -b / 2, -(h / 2 - t));
+                    catLine2D2.StartPoint = catPoint2D2;
+                    catLine2D2.EndPoint = catPoint2D3;
+
+                    Line2D catLine2D7 = catFactory2D1.CreateLine(-b / 2, -(h / 2 - t), -s / 2, -(h / 2 - t));
+                    catLine2D3.StartPoint = catPoint2D3;
+                    catLine2D3.EndPoint = catPoint2D4;
+
+                    Line2D catLine2D8 = catFactory2D1.CreateLine(-s / 2, -(h / 2 - t), -s / 2, h / 2 - t);
+                    catLine2D4.StartPoint = catPoint2D4;
+                    catLine2D4.EndPoint = catPoint2D1;
+
+                    // Skizzierer verlassen
+                    catiaSketch1.CloseEdition();
+                    // Part aktualisieren
+                    catiaPart.Part.Update();
+                    skizzeerstellt = true;
+                }
+                else
+                {
+                    MessageBox.Show("Fehler beim Erstellen des Profils:\rDie Werte dürfen nicht null sein!");
+                    skizzeerstellt = false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Erstellen des Profils:\rEs konnte keine Skizze erstellt werden!");
+                skizzeerstellt = false;
+            }
             
-            // dann die Linien
-            Line2D catLine2D1 = catFactory2D1.CreateLine(s/2, h/2-t, b/2, h/2-t);
-            catLine2D1.StartPoint = catPoint2D1;
-            catLine2D1.EndPoint = catPoint2D2;
 
-            Line2D catLine2D2 = catFactory2D1.CreateLine(b/2, h/2-t, b/2, -(h/2-t));
-            catLine2D2.StartPoint = catPoint2D2;
-            catLine2D2.EndPoint = catPoint2D3;
-
-            Line2D catLine2D3 = catFactory2D1.CreateLine(b/2, -(h/2-t), s/2, -(h/2-t));
-            catLine2D3.StartPoint = catPoint2D3;
-            catLine2D3.EndPoint = catPoint2D4;
-
-            Line2D catLine2D4 = catFactory2D1.CreateLine(s/2, -(h/2-t), s/2, h/2-t);
-            catLine2D4.StartPoint = catPoint2D4;
-            catLine2D4.EndPoint = catPoint2D1;
-
-            // erst die Punkte
-            Point2D catPoint2D5 = catFactory2D1.CreatePoint(-s / 2, h / 2 - t);
-            Point2D catPoint2D6 = catFactory2D1.CreatePoint(-b / 2, h / 2 - t);
-            Point2D catPoint2D7 = catFactory2D1.CreatePoint(-b / 2, -(h / 2 - t));
-            Point2D catPoint2D8 = catFactory2D1.CreatePoint(-s / 2, -(h / 2 - t));
-
-            // dann die Linien
-            Line2D catLine2D5 = catFactory2D1.CreateLine(-s / 2, h / 2 - t, -b / 2, h / 2 - t);
-            catLine2D1.StartPoint = catPoint2D1;
-            catLine2D1.EndPoint = catPoint2D2;
-
-            Line2D catLine2D6 = catFactory2D1.CreateLine(-b / 2, h / 2 - t, -b / 2, -(h / 2 - t));
-            catLine2D2.StartPoint = catPoint2D2;
-            catLine2D2.EndPoint = catPoint2D3;
-
-            Line2D catLine2D7 = catFactory2D1.CreateLine(-b / 2, -(h / 2 - t), -s / 2, -(h / 2 - t));
-            catLine2D3.StartPoint = catPoint2D3;
-            catLine2D3.EndPoint = catPoint2D4;
-
-            Line2D catLine2D8 = catFactory2D1.CreateLine(-s / 2, -(h / 2 - t), -s / 2, h / 2 - t);
-            catLine2D4.StartPoint = catPoint2D4;
-            catLine2D4.EndPoint = catPoint2D1;
-
-            // Skizzierer verlassen
-            catiaSketch1.CloseEdition();
-            // Part aktualisieren
-            catiaPart.Part.Update();
+            return skizzeerstellt;
         }
-        public void ErzeugeTascheDoppelTTräger(double l)
+        public bool ErzeugeTascheDoppelTTräger(double l,bool skizzeerstellt)
         {
-            // Hauptkoerper in Bearbeitung definieren
-            catiaPart.Part.InWorkObject = catiaPart.Part.MainBody;
+            if (skizzeerstellt==true)
+            {
+                if (l>0)
+                {
+                    // Hauptkoerper in Bearbeitung definieren
+                    catiaPart.Part.InWorkObject = catiaPart.Part.MainBody;
 
-            // Block(Balken) erzeugen
-            ShapeFactory catShapeFactory2 = (ShapeFactory)catiaPart.Part.ShapeFactory;
-            Pocket catPocket = catShapeFactory2.AddNewPocket(catiaSketch1, -l);
-            /*Limit catLimit = catPocket.FirstLimit;
-            catLimit.LimitMode = catPocket.SecondLimit*/
-            // Block umbenennen
-            catPocket.set_Name("Tasche");
+                    // Block(Balken) erzeugen
+                    ShapeFactory catShapeFactory2 = (ShapeFactory)catiaPart.Part.ShapeFactory;
+                    Pocket catPocket = catShapeFactory2.AddNewPocket(catiaSketch1, -l);
+                    /*Limit catLimit = catPocket.FirstLimit;
+                    catLimit.LimitMode = catPocket.SecondLimit*/
+                    // Block umbenennen
+                    catPocket.set_Name("Tasche");
 
-            // Part aktualisieren
-            catiaPart.Part.Update();
+                    // Part aktualisieren
+                    catiaPart.Part.Update();
+                    skizzeerstellt = true;
+                }
+                else
+                {
+                    skizzeerstellt = false;
+                    MessageBox.Show("Fehler beim Erzeugen der Tasche:\rDer Werte darf nicht null sein!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Erzeugen der Tasche:\rEs wurde keine Skizze gefunden!");
+                skizzeerstellt = false;
+            }
+            
+            
+            return skizzeerstellt;
         }
         public CatiaCon()
         {
