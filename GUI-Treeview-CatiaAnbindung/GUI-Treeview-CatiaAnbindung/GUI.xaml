@@ -159,10 +159,10 @@
         <Grid x:Name="Grid_Rechteckrohr" HorizontalAlignment="Left" Height="462" Margin="175,10,0,0" VerticalAlignment="Top" Width="815" Grid.ColumnSpan="2" Visibility="Hidden">
             <Image HorizontalAlignment="Left" Height="190" Margin="10,268,0,0" VerticalAlignment="Top" Width="158" Source="Bilder/rechteckrohr.png"/>
             <Label Content="Rechteckrohr" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic"/>
-            <Label Content="Höhe eingeben" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top"/>
-            <Label Content="Breite eingeben" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top"/>
-            <Label Content="höhe eingeben" HorizontalAlignment="Left" Margin="11,104,0,0" VerticalAlignment="Top"/>
-            <Label Content="breite eingeben" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top"/>
+            <Label Content="Höhe(H) eingeben" HorizontalAlignment="Left" Margin="10,48,0,0" VerticalAlignment="Top"/>
+            <Label Content="Breite(B) eingeben" HorizontalAlignment="Left" Margin="10,76,0,0" VerticalAlignment="Top"/>
+            <Label Content="höhe(h) eingeben" HorizontalAlignment="Left" Margin="11,104,0,0" VerticalAlignment="Top"/>
+            <Label Content="breite(b) eingeben" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top"/>
             <TextBox x:Name="txtB_Höhe_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="168,48,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_Höhe_Rechteckrohr_Lost_Focus" GotFocus="txtB_Höhe_Rechteckrohr_Focus"/>
             <TextBox x:Name="txtB_Breite_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="168,76,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_Breite_Rechteckrohr_Lost_Focus" GotFocus="txtB_Breite_Rechteckrohr_Focus"/>
             <TextBox x:Name="txtB_höhe_Rechteckrohr" HorizontalAlignment="Left" Height="23" Margin="168,104,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80" TextAlignment="Right" LostFocus="txtB_höhe_Rechteckrohr_Lost_Focus" GotFocus="txtB_höhe_Rechteckrohr_Focus"/>
@@ -222,6 +222,7 @@
             <Label Content="mm⁴" HorizontalAlignment="Left" Margin="577,247,0,0" VerticalAlignment="Top"/>
             <Label Content="mm⁴" HorizontalAlignment="Left" Margin="577,279,0,0" VerticalAlignment="Top"/>
             <Button x:Name="btn_Alle_Berechnungen_Durchführen_Rechteckrohr" Content="Alle Berechnungen&#xD;&#xA;     durchführen" HorizontalAlignment="Left" Margin="319,370,0,0" VerticalAlignment="Top" Width="149" Height="46" Click="btn_Alle_Berechnungen_Durchführen_Rechteckrohr_Click"/>
+            <Button Content="An Catia übertragen" HorizontalAlignment="Left" Margin="198,370,0,0" VerticalAlignment="Top" Width="116" Height="46" Click="Button_RechteckrohrClick"/>
 
 
         </Grid>

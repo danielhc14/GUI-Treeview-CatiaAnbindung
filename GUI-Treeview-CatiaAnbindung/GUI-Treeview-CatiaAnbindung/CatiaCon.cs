@@ -480,7 +480,7 @@ namespace GUI_Treeview_CatiaAnbindung
             // Skizze oeffnen
             Factory2D catFactory2D1 = catiaSketch.OpenEdition();
 
-            Circle2D circle2D1 = catFactory2D1.CreateClosedCircle(0.000000, 0.000000, 20.000000);
+            Circle2D circle2D1 = catFactory2D1.CreateClosedCircle(0.000000, 0.000000, aussendurchmesser/2);
             Point2D catPoint2D1 = catFactory2D1.CreatePoint(0, 0);
             circle2D1.CenterPoint = catPoint2D1;
 
@@ -541,7 +541,7 @@ namespace GUI_Treeview_CatiaAnbindung
             // Skizze oeffnen
             Factory2D catFactory2D1 = catiaSketch1.OpenEdition();
 
-            Circle2D circle2D1 = catFactory2D1.CreateClosedCircle(0.000000, 0.000000, 20.000000);
+            Circle2D circle2D1 = catFactory2D1.CreateClosedCircle(0.000000, 0.000000, innendurchmesser/2);
             Point2D catPoint2D1 = catFactory2D1.CreatePoint(0, 0);
             circle2D1.CenterPoint = catPoint2D1;
 
@@ -600,8 +600,195 @@ namespace GUI_Treeview_CatiaAnbindung
 
 
             return skizzeerstellt;
-        } 
-        
+        }
+        public bool ErzeugeProfilRechteckrohr(Double breite, Double laenge)
+        {
+            if (breite == 0 & laenge == 0)
+            {
+                MessageBox.Show("Fehler beim Erstellen des Profils:\rDie Werte dürfen nicht null sein!");
+                skizzeerstellt = false;
+            }
+            else
+            {
+                breite = breite / 2;
+                laenge = laenge / 2;
+                // Skizze umbenennen
+                catiaSketch.set_Name("Rechteckrohr");
+
+                // Rechteck in Skizze einzeichnen
+                // Skizze oeffnen
+                Factory2D catFactory2D1 = catiaSketch.OpenEdition();
+
+                // Rechteck erzeugen
+
+                // erst die Punkte
+                Point2D catPoint2D1 = catFactory2D1.CreatePoint(-breite, laenge);
+                Point2D catPoint2D2 = catFactory2D1.CreatePoint(breite, laenge);
+                Point2D catPoint2D3 = catFactory2D1.CreatePoint(breite, -laenge);
+                Point2D catPoint2D4 = catFactory2D1.CreatePoint(-breite, -laenge);
+
+                // dann die Linien
+                Line2D catLine2D1 = catFactory2D1.CreateLine(-breite, laenge, breite, laenge);
+                catLine2D1.StartPoint = catPoint2D1;
+                catLine2D1.EndPoint = catPoint2D2;
+
+                Line2D catLine2D2 = catFactory2D1.CreateLine(breite, laenge, breite, -laenge);
+                catLine2D2.StartPoint = catPoint2D2;
+                catLine2D2.EndPoint = catPoint2D3;
+
+                Line2D catLine2D3 = catFactory2D1.CreateLine(breite, -laenge, -breite, -laenge);
+                catLine2D3.StartPoint = catPoint2D3;
+                catLine2D3.EndPoint = catPoint2D4;
+
+                Line2D catLine2D4 = catFactory2D1.CreateLine(-breite, -laenge, -breite, laenge);
+                catLine2D4.StartPoint = catPoint2D4;
+                catLine2D4.EndPoint = catPoint2D1;
+
+                // Skizzierer verlassen
+                catiaSketch.CloseEdition();
+                // Part aktualisieren
+                catiaPart.Part.Update();
+                skizzeerstellt = true;
+            }
+            return skizzeerstellt;
+        }
+        public bool ErzeugeBalkenRechteckrohr(Double tiefe, bool skizzeerstellt)
+        {
+            // Hauptkoerper in Bearbeitung definieren
+            catiaPart.Part.InWorkObject = catiaPart.Part.MainBody;
+            if (skizzeerstellt == true)
+            {
+                if (tiefe > 0)
+                {
+                    // Hauptkoerper in Bearbeitung definieren
+                    catiaPart.Part.InWorkObject = catiaPart.Part.MainBody;
+
+                    // Block(Balken) erzeugen
+                    ShapeFactory catShapeFactory1 = (ShapeFactory)catiaPart.Part.ShapeFactory;
+                    Pad catPad1 = catShapeFactory1.AddNewPad(catiaSketch, tiefe);
+
+                    // Block umbenennen
+                    catPad1.set_Name("Balken");
+                    // Block umbenennen
+                    catPad1.set_Name("Balken");
+
+                    // Part aktualisieren
+                    catiaPart.Part.Update();
+                    // Part aktualisieren
+                    catiaPart.Part.Update();
+                }
+                else
+                {
+                    MessageBox.Show("Fehler beim Erzeugen des Körpers:\rDer Werte darf nicht null sein!");
+                }
+               
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Erzeugen des Körpers:\rEs konnte keine Skizze erstellt werden!");
+            }
+            return skizzeerstellt;
+        }
+        public bool ErzeugeSkizzeTascheRechteckrohr( Double laenge2, Double breite2, bool skizzeerstellt)
+        {
+            if (skizzeerstellt == true)
+            {
+                if (breite2 > 0 & laenge2 > 0)
+                {
+                    breite2 = breite2 / 2;
+                    laenge2 = laenge2 / 2;
+                    // Skizze umbenennen
+                    catiaSketch1.set_Name("Tasche");
+
+                    // Rechteck in Skizze einzeichnen
+                    // Skizze oeffnen
+                    Factory2D catFactory2D1 = catiaSketch1.OpenEdition();
+
+                    // Rechteck erzeugen
+
+                    // erst die Punkte
+                    Point2D catPoint2D1 = catFactory2D1.CreatePoint(-breite2, laenge2);
+                    Point2D catPoint2D2 = catFactory2D1.CreatePoint(breite2, laenge2);
+                    Point2D catPoint2D3 = catFactory2D1.CreatePoint(breite2, -laenge2);
+                    Point2D catPoint2D4 = catFactory2D1.CreatePoint(-breite2, -laenge2);
+
+                    // dann die Linien
+                    Line2D catLine2D1 = catFactory2D1.CreateLine(-breite2, laenge2, breite2, laenge2);
+                    catLine2D1.StartPoint = catPoint2D1;
+                    catLine2D1.EndPoint = catPoint2D2;
+
+                    Line2D catLine2D2 = catFactory2D1.CreateLine(breite2, laenge2, breite2, -laenge2);
+                    catLine2D2.StartPoint = catPoint2D2;
+                    catLine2D2.EndPoint = catPoint2D3;
+
+                    Line2D catLine2D3 = catFactory2D1.CreateLine(breite2, -laenge2, -breite2, -laenge2);
+                    catLine2D3.StartPoint = catPoint2D3;
+                    catLine2D3.EndPoint = catPoint2D4;
+
+                    Line2D catLine2D4 = catFactory2D1.CreateLine(-breite2, -laenge2, -breite2, laenge2);
+                    catLine2D4.StartPoint = catPoint2D4;
+                    catLine2D4.EndPoint = catPoint2D1;
+
+
+                    // Skizzierer verlassen
+                    catiaSketch1.CloseEdition();
+                    // Part aktualisieren
+                    catiaPart.Part.Update();
+                    skizzeerstellt = true;
+                }
+                else
+                {
+                    MessageBox.Show("Fehler beim Erstellen des Profils:\rDie Werte dürfen nicht null sein!");
+                    skizzeerstellt = false;
+                }
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Erstellen des Profils:\rEs konnte keine Skizze erstellt werden!");
+                skizzeerstellt = false;
+            }
+
+
+            return skizzeerstellt;
+        }
+        public bool ErzeugeTascheRechteckrohr(double tiefe, bool skizzeerstellt)
+        {
+            if (skizzeerstellt == true)
+            {
+                if (tiefe > 0)
+                {
+                    // Hauptkoerper in Bearbeitung definieren
+                    catiaPart.Part.InWorkObject = catiaPart.Part.MainBody;
+
+                    // Block(Balken) erzeugen
+                    ShapeFactory catShapeFactory2 = (ShapeFactory)catiaPart.Part.ShapeFactory;
+                    Pocket catPocket = catShapeFactory2.AddNewPocket(catiaSketch1, -tiefe);
+                    /*Limit catLimit = catPocket.FirstLimit;
+                    catLimit.LimitMode = catPocket.SecondLimit*/
+                    // Block umbenennen
+                    catPocket.set_Name("Tasche");
+
+                    // Part aktualisieren
+                    catiaPart.Part.Update();
+                    skizzeerstellt = true;
+                }
+                else
+                {
+                    skizzeerstellt = false;
+                    MessageBox.Show("Fehler beim Erzeugen der Tasche:\rDer Werte darf nicht null sein!");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Fehler beim Erzeugen der Tasche:\rEs wurde keine Skizze gefunden!");
+                skizzeerstellt = false;
+            }
+
+
+            return skizzeerstellt;
+        }
+
+
 
         public CatiaCon()
         {

@@ -840,6 +840,7 @@ namespace GUI_Treeview_CatiaAnbindung
             {
                 //Bei Richtiger Eingabe wird der Hintergrund der Textbox Weiß gefärbt
                 txtB_Höhe_Rechteckrohr.Background = Brushes.White;
+                mein_Rechteckrohr.setLänge(laenge);
             }
         }
 
@@ -864,6 +865,7 @@ namespace GUI_Treeview_CatiaAnbindung
             {
                 //Bei Richtiger Eingabe wird der Hintergrund der Textbox Weiß gefärbt
                 txtB_Breite_Rechteckrohr.Background = Brushes.White;
+                mein_Rechteckrohr.setBreite(breite);
             }
         }
 
@@ -888,6 +890,7 @@ namespace GUI_Treeview_CatiaAnbindung
             {
                 //Bei Richtiger Eingabe wird der Hintergrund der Textbox Weiß gefärbt
                 txtB_höhe_Rechteckrohr.Background = Brushes.White;
+                mein_Rechteckrohr.setLänge1(laenge2);
             }
         }
 
@@ -912,6 +915,7 @@ namespace GUI_Treeview_CatiaAnbindung
             {
                 //Bei Richtiger Eingabe wird der Hintergrund der Textbox Weiß gefärbt
                 txtB_breite_Rechteckrohr.Background = Brushes.White;
+                mein_Rechteckrohr.setBreite1(breite2);
             }
         }
 
@@ -930,12 +934,14 @@ namespace GUI_Treeview_CatiaAnbindung
                 {
                     //Bei Fehleingabe wird der Hintergrund der Textbox Rot gefärbt
                     txtB_tiefe_Rechteckrohr.Background = Brushes.Red;
+                    
                 }
             }
             else
             {
                 //Bei Richtiger Eingabe wird der Hintergrund der Textbox Weiß gefärbt
                 txtB_tiefe_Rechteckrohr.Background = Brushes.White;
+                mein_Rechteckrohr.setTiefe(tiefe);
             }
         }
 
@@ -1118,7 +1124,7 @@ namespace GUI_Treeview_CatiaAnbindung
                 //Bei Richtiger Eingabe wird der Hintergrund der Textbox Weiß gefärbt
                 txtB_Aussendurchmesser_Rohr.Background = Brushes.White;
                 mein_Rohr.setADurchmesser(aussendurchmesser);
-                MessageBox.Show(Convert.ToString(aussendurchmesser), "aussendurchmesser");
+                
             }
         }
         private void txtB_Aussendurchmesser_Rohr_Focus(object sender, RoutedEventArgs e)
@@ -1398,6 +1404,35 @@ namespace GUI_Treeview_CatiaAnbindung
             {
 
             }
+        }
+
+        private void Button_RechteckrohrClick(object sender, RoutedEventArgs e)
+        {
+            cc.CatiaLauft();
+            try
+            {
+                if (mein_Rechteckrohr.Fehler(mein_Rechteckrohr.getBreite(), mein_Rechteckrohr.getBreite1(), mein_Rechteckrohr.getLänge(), mein_Rechteckrohr.getLänge1() )== false)
+                {
+                    
+                    cc.ErzeugePart();
+                    cc.ErstelleLeereSkizze();
+                    skizzeerstellt = cc.ErzeugeProfilRechteckrohr(mein_Rechteckrohr.getLänge(), mein_Rechteckrohr.getBreite());
+                    skizzeerstellt = cc.ErzeugeBalkenRechteckrohr(mein_Rechteckrohr.getTiefe(),skizzeerstellt);
+                    skizzeerstellt = cc.ErzeugeSkizzeTascheRechteckrohr(mein_Rechteckrohr.getLänge1(), mein_Rechteckrohr.getBreite1(), skizzeerstellt);
+                    skizzeerstellt = cc.ErzeugeTascheRechteckrohr(mein_Rechteckrohr.getTiefe(), skizzeerstellt);
+                    
+                }
+                else
+                {
+                    MessageBox.Show("Außendurchmesser muss größer als Innendurchmesser sein!", "Fehler bei der übertragung an Catia");
+                }
+
+            }
+            catch
+            {
+
+            }
+
         }
     }
 }

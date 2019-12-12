@@ -31,6 +31,7 @@ namespace GUI_Treeview_CatiaAnbindung
         private double preis;
         private double Ixx;
         private double Iyy;
+        private bool fehler;
 
         public Rechteckrohr(GUI sender, double laenge1, double breite1, double laenge21, double breite21, double tiefe1, double dichte1, double kosten1)
         {
@@ -211,5 +212,72 @@ namespace GUI_Treeview_CatiaAnbindung
             callingGUI.txtB_tiefe_Rechteckrohr.Background = Brushes.White;
             callingGUI.txtB_höhe_Rechteckrohr.Background = Brushes.White;
         }
+        public void setLänge(double laenge1)
+        {
+            //setzen der Länge (für Catia benötigt)
+            laenge = laenge1;
+        }
+        public double getLänge()
+        {
+            //Holen der Länge, um dies an Catia zu übertragen
+            return laenge;
+        }
+        public void setBreite(double breite1)
+        {
+            //setzen der Breite (für Catia benötigt)
+            breite = breite1;
+        }
+        public double getBreite()
+        {
+            //Holen der Breite, um dies an Catia zu übertragen
+            return breite;
+        }
+        public void setLänge1(double laenge21)
+        {
+            //setzen der Länge (für Catia benötigt)
+            laenge2 = laenge21;
+        }
+        public double getLänge1()
+        {
+            //Holen der Länge, um dies an Catia zu übertragen
+            return laenge2;
+        }
+        public void setBreite1(double breite21)
+        {
+            //setzen der Breite (für Catia benötigt)
+            breite2 = breite21;
+        }
+        public double getBreite1()
+        {
+            //Holen der Breite, um dies an Catia zu übertragen
+            return breite2;
+        }
+        public void setTiefe(double tiefe1)
+        {
+            //setzen der Tiefe (für Catia benötigt)
+            tiefe = tiefe1;
+        }
+        public double getTiefe()
+        {
+            //Holen der Tiefe, um dies an Catia zu übertragen
+            return tiefe;
+        }
+        public bool Fehler(double breite, double breite1,double laenge, double laenge1)
+        {
+            if (breite > breite1 & laenge > laenge1)
+            {
+                fehler = false;
+            }
+            else
+            {
+                fehler = true;
+            }
+            return fehler;
+        }
+        public bool getFehler()
+        {
+            return fehler;
+        }
     }
+
 }
