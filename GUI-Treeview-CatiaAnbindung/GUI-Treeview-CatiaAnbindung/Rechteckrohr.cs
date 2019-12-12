@@ -50,22 +50,27 @@ namespace GUI_Treeview_CatiaAnbindung
             //Überprüfung, ob beide Eingaben eine positive Zahl beinhaltet
             if (laenge1 > 0 & breite1 > 0 & laenge21 > 0 & breite21 > 0)
             {
-
-                flaeche = berechnung_rechteckR.FlaecheRechteckRohr(breite1, laenge1, breite21, laenge21);
-                //Ergebnis auf 2 Nachkommastellen runden
-                flaeche = Math.Round(flaeche, 2);
-                callingGUI.txtB_Ausgabe_Fläche_Rechteckrohr.Text = Convert.ToString(flaeche);
-                laenge = laenge1;
-                breite = breite1;
-                laenge2 = laenge21;
-                breite2 = breite21;
-
+                if (laenge1>laenge21 && breite1>breite21)
+                {
+                    flaeche = berechnung_rechteckR.FlaecheRechteckRohr(breite1, laenge1, breite21, laenge21);
+                    //Ergebnis auf 2 Nachkommastellen runden
+                    flaeche = Math.Round(flaeche, 2);
+                    callingGUI.txtB_Ausgabe_Fläche_Rechteckrohr.Text = Convert.ToString(flaeche);
+                    laenge = laenge1;
+                    breite = breite1;
+                    laenge2 = laenge21;
+                    breite2 = breite21;
+                }
+                else
+                {
+                    callingGUI.txtB_Ausgabe_Fläche_Rechteckrohr.Text = "Fehler!";
+                    MessageBox.Show("Die Tasche kann nicht gößer sein als das Profil!","Fehler!");
+                }                
             }
             else //Wenn die umwandlung fehlschlägt => Fehlermeldung ausgabefeld Fläche
             {
                 callingGUI.txtB_Ausgabe_Fläche_Rechteckrohr.Text = "Fehler!";
             }
-
         }
         public double getFläche()
         {

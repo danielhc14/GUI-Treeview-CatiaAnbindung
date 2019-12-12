@@ -1118,6 +1118,7 @@ namespace GUI_Treeview_CatiaAnbindung
                 //Bei Richtiger Eingabe wird der Hintergrund der Textbox Weiß gefärbt
                 txtB_Aussendurchmesser_Rohr.Background = Brushes.White;
                 mein_Rohr.setADurchmesser(aussendurchmesser);
+                MessageBox.Show(Convert.ToString(aussendurchmesser), "aussendurchmesser");
             }
         }
         private void txtB_Aussendurchmesser_Rohr_Focus(object sender, RoutedEventArgs e)
@@ -1143,13 +1144,14 @@ namespace GUI_Treeview_CatiaAnbindung
                 {
                     //Bei Fehleingabe wird der Hintergrund der Textbox Rot gefärbt
                     txtB_Innendurchmesser_Rohr.Background = Brushes.Red;
-                    mein_Rohr.setIDurchmesser(innendurchmesser);
+                    
                 }
             }
             else
             {
                 //Bei Richtiger Eingabe wird der Hintergrund der Textbox Weiß gefärbt
                 txtB_Innendurchmesser_Rohr.Background = Brushes.White;
+                mein_Rohr.setIDurchmesser(innendurchmesser);
             }
         }
 
@@ -1378,14 +1380,19 @@ namespace GUI_Treeview_CatiaAnbindung
             cc.CatiaLauft();
             try
             {
-                cc.ErzeugePart();
-                cc.ErstelleLeereSkizze();
-                skizzeerstellt = cc.ErzeugeProfilRohr(mein_Rohr.getADurchmesser());
-                skizzeerstellt = cc.ErzeugeBalkenRohr(mein_Rohr.getLaenge(), skizzeerstellt);
-                skizzeerstellt = cc.ErzeugeProfilTascheRohr(mein_Rohr.getIDurchmesser(), skizzeerstellt);
-                skizzeerstellt = cc.ErzeugeTascheRohr(mein_Rohr.getLaenge(), skizzeerstellt);
-                   
-                
+                if (mein_Rohr.Fehler(mein_Rohr.getADurchmesser(),mein_Rohr.getIDurchmesser()) == false)
+                {
+                    cc.ErzeugePart();
+                    cc.ErstelleLeereSkizze();
+                    skizzeerstellt = cc.ErzeugeProfilRohr(mein_Rohr.getADurchmesser());
+                    skizzeerstellt = cc.ErzeugeBalkenRohr(mein_Rohr.getLaenge(), skizzeerstellt);
+                    skizzeerstellt = cc.ErzeugeProfilTascheRohr(mein_Rohr.getIDurchmesser(), skizzeerstellt);
+                    skizzeerstellt = cc.ErzeugeTascheRohr(mein_Rohr.getLaenge(), skizzeerstellt);
+                }
+                else
+                {
+                    MessageBox.Show("Außendurchmesser muss größer als Innendurchmesser sein!", "Fehler bei der übertragung an Catia");
+                }         
             }
             catch
             {

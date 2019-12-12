@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Windows.Media;
+using System.Windows.Shapes;
 
 namespace GUI_Treeview_CatiaAnbindung
 {
@@ -25,6 +27,8 @@ namespace GUI_Treeview_CatiaAnbindung
         private double ixx;
         private double iyy;
         private string eingabe;
+        private bool fehler1;
+        private bool fehler;
 
         public Rohr(GUI sender, double aussendurchmesser1, double innendurchmesser1, double laenge1, double dichte1, double kosten1)
         {
@@ -41,10 +45,18 @@ namespace GUI_Treeview_CatiaAnbindung
             //Überprüfung, ob beide Eingaben eine positive Zahl beinhaltet
             if (aussendurchmesser1 > 0 & innendurchmesser1 > 0)
             {
-                flaeche = berechnung.Rohrprofil_Flaechenberechnung(aussendurchmesser1, innendurchmesser1);
-                //Ergebnis auf 2 Nachkommastellen runden
-                flaeche = Math.Round(flaeche, 2);
-                callingGUI.txtB_Ausgabe_Flaeche_Rohr.Text = Convert.ToString(flaeche);
+                if (aussendurchmesser1>innendurchmesser1)
+                {
+                    flaeche = berechnung.Rohrprofil_Flaechenberechnung(aussendurchmesser1, innendurchmesser1);
+                    //Ergebnis auf 2 Nachkommastellen runden
+                    flaeche = Math.Round(flaeche, 2);
+                    callingGUI.txtB_Ausgabe_Flaeche_Rohr.Text = Convert.ToString(flaeche);
+                }
+                else
+                {
+                    callingGUI.txtB_Ausgabe_Flaeche_Rohr.Text = "Fehler!";
+                    MessageBox.Show("Die Tasche kann nicht gößer sein als das Profil!", "Fehler!");
+                }
 
             }
             else //Wenn die umwandlung fehlschlägt => Fehlermeldung ausgabefeld Fläche
@@ -193,6 +205,22 @@ namespace GUI_Treeview_CatiaAnbindung
         {
             //Holen der Länge, um dies an Catia zu übertragen
             return laenge;
+        }
+        public bool Fehler (double aussendurchmesser, double innendurchmesser)
+        {
+            if (aussendurchmesser>innendurchmesser)
+            {
+                fehler = false;
+            }
+            else
+            {
+                fehler = true;
+            }
+            return fehler;
+        }
+        public bool getFehler ()
+        {
+            return fehler;
         }
     }
 }
