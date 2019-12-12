@@ -219,7 +219,7 @@ namespace GUI_Treeview_CatiaAnbindung
             return fehler;
         }
         public bool getFehler ()
-        {
+        {//joo
             return fehler;
         }
     }
