@@ -1365,6 +1365,7 @@ namespace GUI_Treeview_CatiaAnbindung
 
         private void btn_Catia_Kreis_Click(object sender, RoutedEventArgs e)
         {
+            //Übertragung an Catia
             cc.CatiaLauft();
             try
             {
