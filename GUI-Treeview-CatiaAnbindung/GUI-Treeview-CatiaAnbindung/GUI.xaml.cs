@@ -1332,7 +1332,7 @@ namespace GUI_Treeview_CatiaAnbindung
             try
             {
                 cc.ErzeugePart();
-                cc.ErstelleLeereSkizze();
+                cc.ErstelleLeereSkizze1();
                 skizzeerstellt = cc.ErzeugeProfilRechteck(mein_Rechteck.getLänge(), mein_Rechteck.getBreite());
                 cc.ErzeugeBalken(mein_Rechteck.getTiefe(), skizzeerstellt);
             }
@@ -1369,7 +1369,7 @@ namespace GUI_Treeview_CatiaAnbindung
             try
             {
                 cc.ErzeugePart();
-                cc.ErstelleLeereSkizze();
+                cc.ErstelleLeereSkizze1();
                 skizzeerstellt = cc.ErzeugeProfilKreis(mein_Kreis.getDurchmesser());
                 cc.ErzeugeStange(mein_Kreis.getLaenge(), skizzeerstellt);
             }

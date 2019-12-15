@@ -108,6 +108,36 @@ namespace GUI_Treeview_CatiaAnbindung
             catiaPart.Part.Update();
         }
 
+        public void ErstelleLeereSkizze1()
+        {
+            // geometrisches Set auswaehlen und umbenennen
+            HybridBodies catHybridBodies = catiaPart.Part.HybridBodies;
+            HybridBody catHybridBody1;
+            try
+            {
+                catHybridBody1 = catHybridBodies.Item("Geometrisches Set.1");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Kein geometrisches Set gefunden! " + Environment.NewLine +
+                    "Ein PART manuell erzeugen und ein darauf achten, dass 'Geometisches Set' aktiviert ist.",
+                    "Fehler");
+                return;
+            }
+            catHybridBody1.set_Name("Profile");
+            // neue Skizze im ausgewaehlten geometrischen Set anlegen
+            Sketches catSketches1 = catHybridBody1.HybridSketches;
+            OriginElements catOriginElements = catiaPart.Part.OriginElements;
+            Reference catReference1 = (Reference)catOriginElements.PlaneYZ;
+            catiaSketch = catSketches1.Add(catReference1);
+
+            // Achsensystem in Skizze erstellen 
+            ErzeugeAchsensystem();
+
+            // Part aktualisieren
+            catiaPart.Part.Update();
+        }
+
         private void ErzeugeAchsensystem()
         {
             object[] arr = new object[] {0.0, 0.0, 0.0,
