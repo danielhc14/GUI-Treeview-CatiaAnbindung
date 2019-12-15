@@ -12,16 +12,17 @@
             <ColumnDefinition Width="331*"/>
         </Grid.ColumnDefinitions>
         <TreeView x:Name="trv_Auswahl1" HorizontalAlignment="Left" Height="399" Margin="10,10,0,0" VerticalAlignment="Top" Width="160">
-            <TreeViewItem x:Name="trv_Auswahl" Header="Eckige Formen" Height="78" Width="154" IsExpanded="True">
+            <TreeViewItem x:Name="trv_Auswahl" Header="Eckige Formen" IsExpanded="True">
                 <TreeViewItem Header="Rechteck" HorizontalAlignment="Left" Height="20" Width="81" Selected="TreeViewItem_Rechteck_Selected"/>
                 <TreeViewItem Header="Rechteckrohr" HorizontalAlignment="Left" Height="20" Width="135" Selected="TreeViewItem_Rechteckrohr_Selected"/>
                 <TreeViewItem Header="Doppel T-Träger" HorizontalAlignment="Left" Height="20" Width="135" Selected="TreeViewItem_DoppelTTräger_Selected"/>
 
             </TreeViewItem>
-            <TreeViewItem Header="Runde Formen" Height="100" Width="154" IsExpanded="True">
+            <TreeViewItem Header="Runde Formen" IsExpanded="True">
                 <TreeViewItem Header="Kreis" HorizontalAlignment="Left" Height="20" Width="81" Selected="TreeViewItem_Kreis_Selected"/>
                 <TreeViewItem Header="Rohr" HorizontalAlignment="Left" Height="20" Width="135" Selected="TreeViewItem_Rohr_Selected"/>
             </TreeViewItem>
+
         </TreeView>
         <Grid x:Name="Grid_Rechteck" HorizontalAlignment="Left" Height="432" Margin="175,10,0,0" VerticalAlignment="Top" Width="815" Grid.ColumnSpan="2" Visibility="Hidden">
             <Label Content="Länge eingeben:" HorizontalAlignment="Left" Margin="10,39,0,0" VerticalAlignment="Top"/>
@@ -118,7 +119,7 @@
             <Label Content="Ixx" HorizontalAlignment="Left" Margin="348,244,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.583,0.962"/>
             <Label Content="Iyy" HorizontalAlignment="Left" Margin="348,276,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.56,-0.141"/>
             <TextBox x:Name="txtB_Ausgabe_T_Träger_Ixx" HorizontalAlignment="Left" Height="23" Margin="449,251,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
-            <TextBox x:Name="txtB_Ausgabe_T_Träger_Iyy" HorizontalAlignment="Left" Height="23" Margin="449,279,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
+            <TextBox x:Name="txtB_Ausgabe_T_Träger_Iyy" HorizontalAlignment="Left" Height="23" Margin="449,283,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" IsEnabled="False" TextAlignment="Right"/>
             <Button x:Name="btn_Flächenträgheitsmoment_T_Träger" Content="Flächenträgheitsmoment&#xD;&#xA;berechnen" HorizontalAlignment="Left" Margin="627,253,0,0" VerticalAlignment="Top" Width="149" Height="53" Click="btn_Flächenträgheitsmoment_T_Träger_Click"/>
             <Image HorizontalAlignment="Left" Height="155" Margin="10,277,0,0" VerticalAlignment="Top" Width="162" Source="Bilder/doppel-t.png"/>
             <Label Content="Doppel T-Träger" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" FontWeight="Bold" FontStyle="Italic"/>
@@ -138,7 +139,7 @@
                 </StackPanel>
 
             </Button>
-            <Label Content="alle Schwerpunkte liegen im Mittelpunkt" HorizontalAlignment="Left" Margin="348,330,0,0" VerticalAlignment="Top" Width="221"/>
+            <Label Content="alle Schwerpunkte liegen im Mittelpunkt" HorizontalAlignment="Left" Margin="348,330,0,0" VerticalAlignment="Top" Width="231"/>
             <Label Content="mm" HorizontalAlignment="Left" Margin="253,45,0,0" VerticalAlignment="Top" RenderTransformOrigin="-0.25,-0.135"/>
             <Label Content="mm" HorizontalAlignment="Left" Margin="253,73,0,0" VerticalAlignment="Top"/>
             <Label Content="mm" HorizontalAlignment="Left" Margin="253,105,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.618,0.25"/>
