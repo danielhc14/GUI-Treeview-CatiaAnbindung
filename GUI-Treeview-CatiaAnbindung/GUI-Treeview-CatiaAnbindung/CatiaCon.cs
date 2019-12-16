@@ -148,7 +148,7 @@ namespace GUI_Treeview_CatiaAnbindung
 
         public bool ErzeugeProfilRechteck(Double b, Double h)
         {
-            if (b == 0 & h == 0)
+            if (b == 0 | h == 0)
             {
                 MessageBox.Show("Fehler beim Erstellen des Profils:\rDie Werte dürfen nicht null sein!");
                 skizzeerstellt = false;
@@ -633,7 +633,7 @@ namespace GUI_Treeview_CatiaAnbindung
         }
         public bool ErzeugeProfilRechteckrohr(Double breite, Double laenge)
         {
-            if (breite == 0 & laenge == 0)
+            if (breite == 0 | laenge == 0)
             {
                 MessageBox.Show("Fehler beim Erstellen des Profils:\rDie Werte dürfen nicht null sein!");
                 skizzeerstellt = false;
